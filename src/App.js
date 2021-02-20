@@ -1,7 +1,11 @@
-import "./styles.css";
 import productConfigs from "data/configs.json";
 import { useProductConfigurator } from "hooks/useProductConfigurator";
 import { StepInput } from "components/StepInput";
+
+import "./styles.css";
+import "playbook-ui/dist/playbook.css";
+import "playbook-ui/dist/fonts/regular-min";
+import "playbook-ui/dist/fonts/fontawesome-min";
 
 export default function App() {
   const { models, styles, types, configs, options, select, selection } = useProductConfigurator(

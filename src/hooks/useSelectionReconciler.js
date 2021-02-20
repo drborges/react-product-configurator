@@ -5,7 +5,7 @@ export function useSelectionReconciler(name, value, options, onChange) {
     if (value) {
       const option = options.find((o) => o.name === value?.name);
       if (option) {
-        onChange(name, option.id);
+        onChange(name, option);
       }
     }
   }, [onChange, name, options, value]);

@@ -2,3 +2,13 @@
   font-family: sans-serif;
   text-align: center;
 }
+
+h3.pb_title_kit_4.dark {
+  color: #000 !important;
+}
+
+.disabled {
+  cursor: default;
+  pointer-events: none;
+  color: #ddd !important;
+}
