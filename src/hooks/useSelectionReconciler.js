@@ -20,6 +20,7 @@ export function useSelectionReconciler(name, value, options) {
     } else if (canReconcile) {
       onChange(name, optionByName);
     } else if (invalid && !expanded) {
+      onChange(name, undefined);
       toggleExpanded();
     }
   }, [
