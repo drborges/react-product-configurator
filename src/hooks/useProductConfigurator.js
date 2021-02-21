@@ -1,8 +1,6 @@
 import { useCallback, useMemo, useState } from "react";
 import { createCollector } from "helpers/collector";
 
-const isOptionConfig = (c) => c.optionLevel === "options";
-
 export function useProductConfigurator(productConfigs = {}) {
   const [selection, setSelection] = useState({});
   const collector = useMemo(() => createCollector(productConfigs), [productConfigs]);
