@@ -25,14 +25,9 @@ function NestedStepInput({ parent }) {
   );
 }
 
-export default function StepInput({
-  label,
-  name,
-  nestable = false,
-  options = [],
-  value,
-  onChange = () => {}
-}) {
+export default function StepInput({ label, name, nestable = false, options = [] }) {
+  const { select, selection } = useContext(Context);
+  const value = selection[name];
   const { disabled, expanded, invalid, toggleExpanded } = useSelectionReconciler(
     name,
     value,
@@ -42,9 +37,9 @@ export default function StepInput({
   const handleChange = useCallback(
     (option) => () => {
       toggleExpanded();
-      onChange(name, option);
+      select(name, option);
     },
-    [name, onChange, toggleExpanded]
+    [name, select, toggleExpanded]
   );
 
   const css = classnames(styles.StepInput, {
