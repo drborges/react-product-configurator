@@ -1,9 +1,11 @@
 import { useEffect } from "react";
 
-export function useAutoSelect(name, value, options, onChange) {
+export function useAutoSelect(name, options, onChange) {
+  const autoselect = options.length === 1;
+
   useEffect(() => {
-    if (options.length === 1) {
-      onChange(name, options[0]);
-    }
-  }, [onChange, name, options, value]);
+    if (autoselect) onChange(name, options[0]);
+  }, [onChange, name, options, autoselect]);
+
+  return autoselect;
 }

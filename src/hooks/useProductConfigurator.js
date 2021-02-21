@@ -2,9 +2,10 @@ import { useCallback, useMemo, useState } from "react";
 import { createCollector } from "helpers/collector";
 
 export function useProductConfigurator(productConfigs = {}) {
-  const collector = useMemo(() => createCollector(productConfigs), [productConfigs]);
   const [selection, setSelection] = useState({});
+  const collector = useMemo(() => createCollector(productConfigs), [productConfigs]);
   const models = useMemo(() => collector.collectModels(), [collector]);
+
   const styles = useMemo(() => collector.collectStyles(selection.model?.id), [
     collector,
     selection.model
@@ -25,6 +26,8 @@ export function useProductConfigurator(productConfigs = {}) {
     selection.config
   ]);
 
+  const values = useCallback((config) => collector.collectChildren(config?.id) || [], [collector]);
+
   const select = useCallback((name, value) => {
     setSelection((selection) => ({
       ...selection,
@@ -39,6 +42,7 @@ export function useProductConfigurator(productConfigs = {}) {
     styles,
     types,
     configs,
-    options
+    options,
+    values
   };
 }

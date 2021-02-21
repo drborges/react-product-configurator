@@ -1,6 +1,8 @@
+import { useMemo } from "react";
+import Context from "./Context";
 import productConfigs from "data/configs.json";
+import StepInput from "components/StepInput";
 import { useProductConfigurator } from "hooks/useProductConfigurator";
-import { StepInput } from "components/StepInput";
 
 import "./styles.css";
 import "playbook-ui/dist/playbook.css";
@@ -8,13 +10,26 @@ import "playbook-ui/dist/fonts/regular-min";
 import "playbook-ui/dist/fonts/fontawesome-min";
 
 export default function App() {
-  const { models, styles, types, configs, options, select, selection } = useProductConfigurator(
-    productConfigs
-  );
+  const {
+    models,
+    styles,
+    types,
+    configs,
+    options,
+    values,
+    select,
+    selection
+  } = useProductConfigurator(productConfigs);
+
+  const context = useMemo(() => ({ onChange: select, selection, values }), [
+    select,
+    selection,
+    values
+  ]);
 
   return (
     <div className="App">
-      <form>
+      <Context.Provider value={context}>
         <StepInput
           label="Model"
           name="model"
@@ -43,14 +58,18 @@ export default function App() {
           value={selection.config}
           onChange={select}
         />
-        <StepInput
-          label="Options"
-          name="option"
-          options={options}
-          value={selection.option}
-          onChange={select}
-        />
-      </form>
+        {options?.map((option) => (
+          <StepInput
+            nestable
+            key={option.id}
+            label={option.name}
+            name={option.name}
+            options={values(option)}
+            value={selection[option.name]}
+            onChange={select}
+          />
+        ))}
+      </Context.Provider>
     </div>
   );
 }

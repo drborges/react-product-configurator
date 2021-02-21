@@ -1,12 +1,12 @@
 import { useEffect } from "react";
 
 export function useSelectionReconciler(name, value, options, onChange) {
+  const option = options.find((o) => o.name === value?.name);
+  const reconcile = value && option && false;
+
   useEffect(() => {
-    if (value) {
-      const option = options.find((o) => o.name === value?.name);
-      if (option) {
-        onChange(name, option);
-      }
-    }
-  }, [onChange, name, options, value]);
+    if (reconcile) onChange(name, option);
+  }, [onChange, name, option, reconcile]);
+
+  return reconcile;
 }
