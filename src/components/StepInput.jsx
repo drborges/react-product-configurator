@@ -1,54 +1,90 @@
+import classnames from "classnames";
+import { useCallback, useContext } from "react";
 import { Button, SelectableCard, Title } from "playbook-ui";
-import { useAutoSelect } from "hooks/useAutoSelect";
+
+import Context from "Context";
 import { useSelectionReconciler } from "hooks/useSelectionReconciler";
-import { useCallback, useState } from "react";
 
-function useToggler(initialState = false) {
-  const [value, setValue] = useState(initialState);
+import styles from "./styles.module.scss";
 
-  return [
-    value,
-    useCallback(() => {
-      console.log(">>>>>>", value);
-      setValue((current) => !current);
-    }, [])
-  ];
-}
-
-export function StepInput({ label, name, options = [], value, onChange = () => {} }) {
-  const [expanded, toggleExpanded] = useToggler(false);
-  useAutoSelect(name, value, options, onChange);
-  useSelectionReconciler(name, value, options, onChange);
-
-  const disabled = options.length === 0;
-  const handleChange = (option) => () => {
-    toggleExpanded();
-    onChange(name, option);
-  };
+function NestedStepInput({ parent }) {
+  const context = useContext(Context);
+  const options = context.values(parent);
 
   return (
-    <div className="FieldGroup">
-      <Button className={disabled ? "disabled" : null} variant="link" onClick={toggleExpanded}>
-        {label}
-      </Button>
-      {!expanded && <Title>{value?.name}</Title>}
-      {expanded &&
-        options.map((option) => (
-          <SelectableCard
-            key={option.id}
-            checked={value?.id === option.id}
-            icon
-            inputId={option.id}
-            name={name}
-            multi={false}
-            onClick={handleChange(option)}
-            value={option.id}
-          >
-            <Title dark size={4}>
-              {option.name}
-            </Title>
-          </SelectableCard>
-        ))}
-    </div>
+    options.length > 0 && (
+      <StepInput
+        nestable
+        label={`${parent.name} Options`}
+        name={parent?.name}
+        options={options}
+        value={context.selection[parent?.name]}
+        onChange={context.onChange}
+      />
+    )
+  );
+}
+
+export default function StepInput({
+  label,
+  name,
+  nestable = false,
+  options = [],
+  value,
+  onChange = () => {}
+}) {
+  const { disabled, expanded, invalid, toggleExpanded } = useSelectionReconciler(
+    name,
+    value,
+    options
+  );
+
+  const handleChange = useCallback(
+    (option) => () => {
+      toggleExpanded();
+      onChange(name, option);
+    },
+    [name, onChange, toggleExpanded]
+  );
+
+  const css = classnames(styles.StepInput, {
+    [styles.DisabledInput]: disabled,
+    [styles.InvalidInput]: invalid
+  });
+
+  return (
+    <>
+      <div className={css}>
+        <Button
+          fullWidth
+          padding="none"
+          className={disabled ? "disabled" : null}
+          variant="link"
+          onClick={toggleExpanded}
+        >
+          {label}
+        </Button>
+        {!expanded && <Title>{value?.name}</Title>}
+        {expanded &&
+          options.map((option) => (
+            <SelectableCard
+              key={option.id}
+              checked={value?.id === option.id}
+              icon
+              inputId={option.id}
+              name={name}
+              multi={false}
+              onClick={handleChange(option)}
+              value={option.id}
+            >
+              <Title dark size={4}>
+                {option.name}
+              </Title>
+            </SelectableCard>
+          ))}
+      </div>
+
+      {nestable && value && <NestedStepInput parent={value} />}
+    </>
   );
 }
