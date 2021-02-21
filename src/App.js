@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import Context from "./Context";
-import productConfigs from "data/configs.json";
 import StepInput from "components/StepInput";
+import windowsConfig from "data/windows.configs.json";
 import { useProductConfigurator } from "hooks/useProductConfigurator";
 
 import "./styles.css";
@@ -19,7 +19,7 @@ export default function App() {
     values,
     select,
     selection
-  } = useProductConfigurator(productConfigs);
+  } = useProductConfigurator(windowsConfig);
 
   const context = useMemo(() => ({ onChange: select, selection, values }), [
     select,
