@@ -8,8 +8,8 @@ import { useSelectionReconciler } from "hooks/useSelectionReconciler";
 import styles from "./styles.module.scss";
 
 function NestedStepInput({ parent }) {
-  const context = useContext(Context);
-  const options = context.values(parent);
+  const { select, values, selection } = useContext(Context);
+  const options = values(parent);
 
   return (
     options.length > 0 && (
@@ -18,8 +18,8 @@ function NestedStepInput({ parent }) {
         label={`${parent.name} Options`}
         name={parent?.name}
         options={options}
-        value={context.selection[parent?.name]}
-        onChange={context.onChange}
+        value={selection[parent?.name]}
+        onChange={select}
       />
     )
   );
