@@ -3,7 +3,7 @@ import { useContext, useEffect, useMemo } from "react";
 import { useToggler } from "./useToggler";
 
 export function useSelectionReconciler(name, value, options) {
-  const { onChange } = useContext(Context);
+  const { select } = useContext(Context);
   const [expanded, toggleExpanded] = useToggler();
 
   const disabled = options.length <= 1;
@@ -16,16 +16,16 @@ export function useSelectionReconciler(name, value, options) {
 
   useEffect(() => {
     if (canAutoSelect) {
-      onChange(name, options[0]);
+      select(name, options[0]);
     } else if (canReconcile) {
-      onChange(name, optionByName);
+      select(name, optionByName);
     } else if (invalid && !expanded) {
-      onChange(name, undefined);
+      select(name, undefined);
       toggleExpanded();
     }
   }, [
     invalid,
-    onChange,
+    select,
     name,
     expanded,
     canAutoSelect,
