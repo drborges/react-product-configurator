@@ -1,20 +1,24 @@
 import Context from "Context";
+import { Flex } from "playbook-ui";
 import windowsConfig from "data/windows.configs.json";
 import { useProductConfigurator } from "hooks/useProductConfigurator";
 
 import "playbook-ui/dist/playbook.css";
 import "playbook-ui/dist/fonts/regular-min";
 import "playbook-ui/dist/fonts/fontawesome-min";
+
+import Navbar from "components/Navbar";
 import ProductConfigurator from "components/ProductConfigurator";
 
 export default function App() {
   const configurator = useProductConfigurator(windowsConfig);
 
   return (
-    <div className="App">
-      <Context.Provider value={configurator}>
+    <Context.Provider value={configurator}>
+      <Flex justify="center">
+        <Navbar />
         <ProductConfigurator />
-      </Context.Provider>
-    </div>
+      </Flex>
+    </Context.Provider>
   );
 }
