@@ -48,21 +48,27 @@ export function useProductConfigurator(productConfigs = {}) {
 
   const build = useCallback(() => {
     const ids = [];
-    const optionConfigId = selection.config.childrenIds[0];
-    const optionConfigs = productConfigs[optionConfigId].childrenIds.map(
-      (id) => productConfigs[id]
-    );
 
     ids.push(selection.model.id);
     ids.push(selection.style.id);
     ids.push(selection.type.id);
-    ids.push(selection.config.id);
 
-    optionConfigs.forEach((c) => {
-      const configValue = selection[c.name];
-      ids.push(configValue.id);
-      collectConfigPathId(ids, configValue);
-    });
+    if (selection.config) {
+      ids.push(selection.config.id);
+    }
+
+    const optionConfigId = selection.config?.childrenIds[0];
+    if (optionConfigId) {
+      const optionConfigs = productConfigs[optionConfigId].childrenIds.map(
+        (id) => productConfigs[id]
+      );
+
+      optionConfigs.forEach((c) => {
+        const configValue = selection[c.name];
+        ids.push(configValue.id);
+        collectConfigPathId(ids, configValue);
+      });
+    }
 
     return ids;
   }, [selection, productConfigs, collectConfigPathId]);
