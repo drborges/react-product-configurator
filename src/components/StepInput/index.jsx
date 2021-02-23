@@ -28,41 +28,20 @@ function NestedStepInput({ parent }) {
 }
 
 export default function StepInput({ label, name, nestable = false, options = [] }) {
+  const { register } = useFormContext();
   const parentFieldName = `${name}_parent_id`;
-  const { select, selection } = useContext(Context);
-  const { setValue, register } = useFormContext();
-  const value = selection[name];
-  const handleSelect = useCallback(
-    (name, value) => {
-      // Track user selections outside the form state,
-      // this will allow us to initialize new fields with
-      // previously selected values as users change options
-      // higher in the tree, e.g., changing the style or model
-      // we'd be able to keep the state of previouslly selected
-      // options, such as "Color", "Grid Pattern", etc...
-      select(name, value);
-      setValue(name, value?.id);
-      // Make sure we track the parent config as well
-      // this will make it easier to extract all config
-      // ids we need to build the product upon clicking "Save"
-      setValue(parentFieldName, value?.parentId);
-    },
-    [parentFieldName, select, setValue]
-  );
-
-  const { disabled, expanded, invalid, toggleExpanded } = useSelectionReconciler({
+  const { disabled, expanded, invalid, select, toggleExpanded, value } = useSelectionReconciler({
     name,
-    value,
-    options,
-    onSelect: handleSelect
+    parentFieldName,
+    options
   });
 
   const handleChange = useCallback(
     (option) => {
       toggleExpanded();
-      handleSelect(name, option);
+      select(name, option);
     },
-    [name, handleSelect, toggleExpanded]
+    [name, select, toggleExpanded]
   );
 
   const css = classnames(styles.StepInput, {
