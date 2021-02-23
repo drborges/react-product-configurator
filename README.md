@@ -4,8 +4,8 @@ def lookup_attributes
 end
 
 def traverse(config, collected = {})
-  children = ProductConfig.active.where(parent_id: config.id)
-  attributes = config.attributes.slice(*lookup_attributes).deep_transform_keys { |k| k.camelize(:lower) }.merge(childrenIds: children.pluck(:id), type: resolve_type(config, children))
+  children = config.subtrees.active
+  attributes = config.attributes.slice(*lookup_attributes).deep_transform_keys { |k| k.camelize(:lower) }.merge(childrenIds: children.map(&:id))
   collected[attributes["id"]] = attributes
   children.each { |c| traverse(c, collected) }
   collected

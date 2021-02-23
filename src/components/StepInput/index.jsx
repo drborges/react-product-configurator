@@ -59,7 +59,7 @@ export default function StepInput({ label, name, nestable = false, options = [] 
         >
           {label}
         </Button>
-        {!expanded && <Title>{value?.name}</Title>}
+        {!expanded && options.length > 0 && <Title>{value?.name}</Title>}
         {expanded &&
           options.map((option) => (
             <SelectableCard
