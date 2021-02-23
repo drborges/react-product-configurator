@@ -1,8 +1,8 @@
 import { useContext } from "react";
 import { Card, FlexItem } from "playbook-ui";
+import { useFormContext } from "react-hook-form";
 import Context from "Context";
 import StepInput from "components/StepInput";
-import { useFormContext } from "react-hook-form";
 
 export default function ProductConfigurator() {
   const { register } = useFormContext();
