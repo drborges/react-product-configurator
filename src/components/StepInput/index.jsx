@@ -1,18 +1,22 @@
+import Context from "Context";
 import classnames from "classnames";
-import { useCallback } from "react";
+import { useCallback, useContext } from "react";
+import { useFormContext } from "react-hook-form";
 import { Card, Button, Title } from "playbook-ui";
 
 import CardInput from "components/CardInput";
+import { NestedStepInput } from "./NestedStepInput";
+import { validateFormula } from "helpers/validation";
 import { useSelectionReconciler } from "hooks/useSelectionReconciler";
 
 import styles from "./styles.module.scss";
-import { useFormContext } from "react-hook-form";
-import { NestedStepInput } from "./NestedStepInput";
+import Alert from "components/Alert";
 
 export default function StepInput({ label, name, nestable = false, options = [] }) {
-  const { register, errors } = useFormContext();
+  const { getValues, errors, register, setError } = useFormContext();
+  const { lookup } = useContext(Context);
   const parentFieldName = `${name}_parent_id`;
-  const { disabled, expanded, select, toggleExpanded, value } = useSelectionReconciler({
+  const { disabled, invalid, expanded, select, toggleExpanded, value } = useSelectionReconciler({
     name,
     parentFieldName,
     options
@@ -26,9 +30,15 @@ export default function StepInput({ label, name, nestable = false, options = [] 
     [name, select, toggleExpanded]
   );
 
+  const validate = (id) => {
+    const config = lookup(id);
+    const { error, notice } = validateFormula(config, getValues()?.dimensions);
+    return error || notice;
+  };
+
   const css = classnames(styles.StepInput, {
     [styles.DisabledInput]: disabled,
-    [styles.InvalidInput]: errors[name]
+    [styles.InvalidInput]: invalid
   });
 
   return (
@@ -44,7 +54,7 @@ export default function StepInput({ label, name, nestable = false, options = [] 
           behavior when the actual StepInput gets unmounted (when it is not available for a
           parent selection).
         */}
-        <input type="hidden" ref={register({ required: true })} name={name} />
+        <input type="hidden" ref={register({ required: true, validate })} name={name} />
         <input type="hidden" ref={register} name={parentFieldName} />
 
         <Button
@@ -56,6 +66,8 @@ export default function StepInput({ label, name, nestable = false, options = [] 
         >
           {label}
         </Button>
+
+        {errors[name] && <Alert>{errors[name].message}</Alert>}
 
         {!expanded && options.length > 0 && <Title>{value?.name}</Title>}
 

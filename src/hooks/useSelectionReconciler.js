@@ -4,7 +4,7 @@ import { useFormContext } from "react-hook-form";
 import { useToggler } from "./useToggler";
 
 export function useSelectionReconciler({ name, parentFieldName, options }) {
-  const { setValue } = useFormContext();
+  const { errors, setValue } = useFormContext();
   const [expanded, toggleExpanded] = useToggler();
   const { select, selection } = useContext(Context);
   const value = selection[name];
@@ -35,19 +35,18 @@ export function useSelectionReconciler({ name, parentFieldName, options }) {
   const canAutoSelect = !optionById && options.length === 1;
   const canReconcile = !optionById && optionByName;
   const cantReconcile = !optionById && !optionByName;
-  const invalid = cantReconcile && !disabled;
+  const invalid = errors[name];
 
   useEffect(() => {
     if (canAutoSelect) {
       handleSelect(name, options[0]);
     } else if (canReconcile) {
       handleSelect(name, optionByName);
-    } else if (invalid && !expanded) {
+    } else if (cantReconcile && !disabled && !expanded) {
       handleSelect(name, undefined);
       toggleExpanded();
     }
   }, [
-    invalid,
     name,
     expanded,
     canAutoSelect,
@@ -58,8 +57,13 @@ export function useSelectionReconciler({ name, parentFieldName, options }) {
     toggleExpanded
   ]);
 
+  useEffect(() => {
+    if (invalid && !expanded) toggleExpanded();
+  }, [invalid]);
+
   return {
     disabled,
+    invalid,
     expanded,
     toggleExpanded,
     value,

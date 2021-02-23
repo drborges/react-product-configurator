@@ -28,6 +28,8 @@ export function useProductConfigurator(productConfigs = {}) {
 
   const values = useCallback((config) => collector.collectChildren(config?.id) || [], [collector]);
 
+  const lookup = useCallback((id) => productConfigs[id], [productConfigs]);
+
   const select = useCallback((name, value) => {
     setSelection((selection) => ({
       ...selection,
@@ -38,6 +40,7 @@ export function useProductConfigurator(productConfigs = {}) {
   return {
     selection,
     select,
+    lookup,
     models,
     styles,
     types,

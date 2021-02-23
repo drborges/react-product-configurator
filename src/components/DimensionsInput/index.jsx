@@ -10,7 +10,7 @@ import { useCallback, useEffect, useState } from "react";
 export default function DimensionsInput({ label, name, value = { width: "", height: "" } }) {
   const [expanded, toggleExpanded] = useToggler();
   const [dimensions, setDimensions] = useState(value);
-  const { register, getValues, setValue, errors } = useFormContext();
+  const { register, setValue, errors, trigger } = useFormContext();
   const setField = useCallback((name, value) => {
     setValue(name, value, {
       shouldDirty: true,
@@ -25,6 +25,7 @@ export default function DimensionsInput({ label, name, value = { width: "", heig
         ...current,
         [e.target.name]: e.target.value
       }));
+      trigger();
     },
     [setField]
   );

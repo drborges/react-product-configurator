@@ -21,3 +21,7 @@ h3.pb_title_kit_4.dark {
 .text_input_wrapper > .text_input {
   flex-grow: 1;
 }
+
+* {
+  font-family: "Proxima Nova", "Helvetica Neue", Helvetica, Arial, sans_serif;
+}
