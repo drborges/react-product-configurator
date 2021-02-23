@@ -1,31 +1,13 @@
 import classnames from "classnames";
-import { useCallback, useContext } from "react";
+import { useCallback } from "react";
 import { Card, Button, Title } from "playbook-ui";
 
-import Context from "Context";
 import CardInput from "components/CardInput";
 import { useSelectionReconciler } from "hooks/useSelectionReconciler";
 
 import styles from "./styles.module.scss";
 import { useFormContext } from "react-hook-form";
-
-function NestedStepInput({ parent }) {
-  const { select, values, selection } = useContext(Context);
-  const options = values(parent);
-
-  return (
-    options.length > 0 && (
-      <StepInput
-        nestable
-        label={`${parent.name} Options`}
-        name={parent?.name}
-        options={options}
-        value={selection[parent?.name]}
-        onChange={select}
-      />
-    )
-  );
-}
+import { NestedStepInput } from "./NestedStepInput";
 
 export default function StepInput({ label, name, nestable = false, options = [] }) {
   const { register, errors } = useFormContext();

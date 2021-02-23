@@ -3,6 +3,7 @@ import { Card, FlexItem } from "playbook-ui";
 import { useFormContext } from "react-hook-form";
 import Context from "Context";
 import StepInput from "components/StepInput";
+import DimensionsInput from "components/DimensionsInput";
 
 export default function ProductConfigurator() {
   const { register } = useFormContext();
@@ -12,6 +13,7 @@ export default function ProductConfigurator() {
     <FlexItem grow maxWidth="md">
       <Card>
         <input type="hidden" ref={register} name="product" value={product.id} />
+        <DimensionsInput label="Dimensions" name="dimensions" />
         <StepInput label="Model" name="model" options={models} />
         <StepInput label="Styles" name="style" options={styles} />
         <StepInput label="Type" name="type" options={types} />

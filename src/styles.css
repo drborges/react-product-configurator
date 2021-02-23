@@ -7,3 +7,17 @@ h3.pb_title_kit_4.dark {
   pointer-events: none;
   color: #ddd !important;
 }
+
+[class^="pb_text_input_kit"] .text_input_wrapper input,
+[class^="pb_text_input_kit"] .text_input_wrapper .text_input {
+  width: auto !important;
+}
+
+.text_input_wrapper {
+  display: flex !important;
+  flex-direction: column;
+}
+
+.text_input_wrapper > .text_input {
+  flex-grow: 1;
+}
