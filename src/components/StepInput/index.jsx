@@ -7,7 +7,7 @@ import CardInput from "components/CardInput";
 import { useSelectionReconciler } from "hooks/useSelectionReconciler";
 
 import styles from "./styles.module.scss";
-import { useForm, useFormContext } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 
 function NestedStepInput({ parent }) {
   const { select, values, selection } = useContext(Context);
@@ -52,8 +52,18 @@ export default function StepInput({ label, name, nestable = false, options = [] 
   return (
     <>
       <Card className={css} margin="xs" padding="xs">
-        <input type="hidden" ref={register} name={parentFieldName} />
+        {/*
+          React hook form will clear the form state when fields are unmounted, this is
+          an expected behavior that helps keeping the form state in sync with what's
+          presented to the user. Howevere, in HomeTour, we need to hide/collapse fields when
+          selecting options, which causes the form state to lose the user's input.
+          To workaround this expected behavior, we can rely on hidden fields to keep
+          track of the field state. The benefit is that we still get that form state cleanup
+          behavior when the actual StepInput gets unmounted (when it is not available for a
+          parent selection).
+        */}
         <input type="hidden" ref={register} name={name} />
+        <input type="hidden" ref={register} name={parentFieldName} />
 
         <Button
           fullWidth
