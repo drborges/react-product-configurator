@@ -28,8 +28,11 @@ function Form() {
 }
 
 export default function App() {
-  const api = useForm();
   const configurator = useProductConfigurator(windowsConfig);
+  const api = useForm({
+    mode: "all",
+    reValidateMode: "onChange"
+  });
 
   return (
     <FormProvider {...api}>

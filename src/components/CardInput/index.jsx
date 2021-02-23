@@ -1,5 +1,5 @@
-import { SelectableCard, Title } from "playbook-ui";
 import { useCallback } from "react";
+import { SelectableCard, Title } from "playbook-ui";
 
 export default function CardInput({ name, option, value, onChange }) {
   const handleChange = useCallback(() => {

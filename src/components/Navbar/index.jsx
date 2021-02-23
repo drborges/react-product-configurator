@@ -1,11 +1,14 @@
 import { Button, Card } from "playbook-ui";
+import { useFormContext } from "react-hook-form";
 
 import styles from "./styles.module.scss";
 
 export default function Navbar() {
+  const { formState } = useFormContext();
+
   return (
     <Card marginRight="xs" className={styles.Navbar}>
-      <Button fullWidth htmlType="submit">
+      <Button disabled={!formState.isValid} fullWidth htmlType="submit">
         Save
       </Button>
       <Button fullWidth variant="link">

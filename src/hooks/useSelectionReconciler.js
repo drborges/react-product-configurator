@@ -17,7 +17,10 @@ export function useSelectionReconciler({ name, parentFieldName, options }) {
       // we'd be able to keep the state of previouslly selected
       // options, such as "Color", "Grid Pattern", etc...
       select(name, value);
-      setValue(name, value?.id);
+      setValue(name, value?.id, {
+        shouldValidate: true,
+        shouldDirty: true
+      });
       // Make sure we track the parent config as well
       // this will make it easier to extract all config
       // ids we need to build the product upon clicking "Save"
@@ -58,7 +61,6 @@ export function useSelectionReconciler({ name, parentFieldName, options }) {
   return {
     disabled,
     expanded,
-    invalid,
     toggleExpanded,
     value,
     select: handleSelect

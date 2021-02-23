@@ -28,9 +28,9 @@ function NestedStepInput({ parent }) {
 }
 
 export default function StepInput({ label, name, nestable = false, options = [] }) {
-  const { register } = useFormContext();
+  const { register, errors } = useFormContext();
   const parentFieldName = `${name}_parent_id`;
-  const { disabled, expanded, invalid, select, toggleExpanded, value } = useSelectionReconciler({
+  const { disabled, expanded, select, toggleExpanded, value } = useSelectionReconciler({
     name,
     parentFieldName,
     options
@@ -46,7 +46,7 @@ export default function StepInput({ label, name, nestable = false, options = [] 
 
   const css = classnames(styles.StepInput, {
     [styles.DisabledInput]: disabled,
-    [styles.InvalidInput]: invalid
+    [styles.InvalidInput]: errors[name]
   });
 
   return (
@@ -62,7 +62,7 @@ export default function StepInput({ label, name, nestable = false, options = [] 
           behavior when the actual StepInput gets unmounted (when it is not available for a
           parent selection).
         */}
-        <input type="hidden" ref={register} name={name} />
+        <input type="hidden" ref={register({ required: true })} name={name} />
         <input type="hidden" ref={register} name={parentFieldName} />
 
         <Button
