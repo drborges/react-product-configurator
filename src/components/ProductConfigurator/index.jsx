@@ -2,13 +2,16 @@ import { useContext } from "react";
 import { Card, FlexItem } from "playbook-ui";
 import Context from "Context";
 import StepInput from "components/StepInput";
+import { useFormContext } from "react-hook-form";
 
 export default function ProductConfigurator() {
-  const { configs, models, options, styles, types, values } = useContext(Context);
-  console.log(">>>", configs, options);
+  const { register } = useFormContext();
+  const { product, configs, models, options, styles, types, values } = useContext(Context);
+
   return (
     <FlexItem grow maxWidth="md">
       <Card>
+        <input type="hidden" ref={register} name="product" value={product.id} />
         <StepInput label="Model" name="model" options={models} />
         <StepInput label="Styles" name="style" options={styles} />
         <StepInput label="Type" name="type" options={types} />

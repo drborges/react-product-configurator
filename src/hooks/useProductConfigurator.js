@@ -35,46 +35,7 @@ export function useProductConfigurator(productConfigs = {}) {
     }));
   }, []);
 
-  const collectConfigPathId = useCallback(
-    (ids, config) => {
-      const option = selection[config.name];
-      if (option) {
-        ids.push(option.id);
-        collectConfigPathId(ids, option);
-      }
-    },
-    [selection]
-  );
-
-  const build = useCallback(() => {
-    const ids = [];
-
-    ids.push(selection.model.id);
-    ids.push(selection.style.id);
-    ids.push(selection.type.id);
-
-    if (selection.config) {
-      ids.push(selection.config.id);
-    }
-
-    const optionConfigId = selection.config?.childrenIds[0];
-    if (optionConfigId) {
-      const optionConfigs = productConfigs[optionConfigId].childrenIds.map(
-        (id) => productConfigs[id]
-      );
-
-      optionConfigs.forEach((c) => {
-        const configValue = selection[c.name];
-        ids.push(configValue.id);
-        collectConfigPathId(ids, configValue);
-      });
-    }
-
-    return ids;
-  }, [selection, productConfigs, collectConfigPathId]);
-
   return {
-    build,
     selection,
     select,
     models,
@@ -82,6 +43,7 @@ export function useProductConfigurator(productConfigs = {}) {
     types,
     configs,
     options,
-    values
+    values,
+    product: productConfigs[productConfigs.rootId]
   };
 }

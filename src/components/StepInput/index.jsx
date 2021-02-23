@@ -1,11 +1,13 @@
 import classnames from "classnames";
 import { useCallback, useContext } from "react";
-import { Button, SelectableCard, Title } from "playbook-ui";
+import { Card, Button, Title } from "playbook-ui";
 
 import Context from "Context";
+import CardInput from "components/CardInput";
 import { useSelectionReconciler } from "hooks/useSelectionReconciler";
 
 import styles from "./styles.module.scss";
+import { useForm, useFormContext } from "react-hook-form";
 
 function NestedStepInput({ parent }) {
   const { select, values, selection } = useContext(Context);
@@ -26,20 +28,41 @@ function NestedStepInput({ parent }) {
 }
 
 export default function StepInput({ label, name, nestable = false, options = [] }) {
+  const parentFieldName = `${name}_parent_id`;
   const { select, selection } = useContext(Context);
+  const { setValue, register } = useFormContext();
   const value = selection[name];
-  const { disabled, expanded, invalid, toggleExpanded } = useSelectionReconciler(
-    name,
-    value,
-    options
+  const handleSelect = useCallback(
+    (name, value) => {
+      // Track user selections outside the form state,
+      // this will allow us to initialize new fields with
+      // previously selected values as users change options
+      // higher in the tree, e.g., changing the style or model
+      // we'd be able to keep the state of previouslly selected
+      // options, such as "Color", "Grid Pattern", etc...
+      select(name, value);
+      setValue(name, value?.id);
+      // Make sure we track the parent config as well
+      // this will make it easier to extract all config
+      // ids we need to build the product upon clicking "Save"
+      setValue(parentFieldName, value?.parentId);
+    },
+    [parentFieldName, select, setValue]
   );
 
+  const { disabled, expanded, invalid, toggleExpanded } = useSelectionReconciler({
+    name,
+    value,
+    options,
+    onSelect: handleSelect
+  });
+
   const handleChange = useCallback(
-    (option) => () => {
+    (option) => {
       toggleExpanded();
-      select(name, option);
+      handleSelect(name, option);
     },
-    [name, select, toggleExpanded]
+    [name, handleSelect, toggleExpanded]
   );
 
   const css = classnames(styles.StepInput, {
@@ -49,7 +72,10 @@ export default function StepInput({ label, name, nestable = false, options = [] 
 
   return (
     <>
-      <div className={css}>
+      <Card className={css} margin="xs" padding="xs">
+        <input type="hidden" ref={register} name={parentFieldName} />
+        <input type="hidden" ref={register} name={name} />
+
         <Button
           fullWidth
           padding="none"
@@ -59,25 +85,20 @@ export default function StepInput({ label, name, nestable = false, options = [] 
         >
           {label}
         </Button>
+
         {!expanded && options.length > 0 && <Title>{value?.name}</Title>}
+
         {expanded &&
           options.map((option) => (
-            <SelectableCard
+            <CardInput
               key={option.id}
-              checked={value?.id === option.id}
-              icon
-              inputId={option.id}
               name={name}
-              multi={false}
-              onClick={handleChange(option)}
-              value={option.id}
-            >
-              <Title dark size={4}>
-                {option.name}
-              </Title>
-            </SelectableCard>
+              option={option}
+              value={value}
+              onChange={handleChange}
+            />
           ))}
-      </div>
+      </Card>
 
       {nestable && value && <NestedStepInput parent={value} />}
     </>
