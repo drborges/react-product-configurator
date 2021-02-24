@@ -7,7 +7,7 @@ import { Card, Button, Title } from "playbook-ui";
 import CardInput from "components/CardInput";
 import { NestedStepInput } from "./NestedStepInput";
 import { validateFormula } from "helpers/validation";
-import { useSelectionReconciler } from "hooks/useSelectionReconciler";
+import { useStepInput } from "hooks/useStepInput";
 
 import styles from "./styles.module.scss";
 import Alert from "components/Alert";
@@ -15,19 +15,24 @@ import Alert from "components/Alert";
 export default function StepInput({ label, name, nestable = false, options = [] }) {
   const { lookup } = useContext(Context);
   const { getValues, errors, register } = useFormContext();
-  const parentFieldName = `${name}_parent_id`;
-  const { disabled, invalid, expanded, select, toggleExpanded, value } = useSelectionReconciler({
+  const {
+    disabled,
+    invalid,
+    expanded,
+    select,
+    toggleExpanded,
+    value,
+    parentFieldName
+  } = useStepInput({
     name,
-    parentFieldName,
     options
   });
 
   const handleChange = useCallback(
     (option) => {
-      toggleExpanded();
       select(name, option);
     },
-    [name, select, toggleExpanded]
+    [name, select]
   );
 
   const validate = (id) => {
