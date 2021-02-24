@@ -13,8 +13,8 @@ import styles from "./styles.module.scss";
 import Alert from "components/Alert";
 
 export default function StepInput({ label, name, nestable = false, options = [] }) {
-  const { getValues, errors, register, setError } = useFormContext();
   const { lookup } = useContext(Context);
+  const { getValues, errors, register } = useFormContext();
   const parentFieldName = `${name}_parent_id`;
   const { disabled, invalid, expanded, select, toggleExpanded, value } = useSelectionReconciler({
     name,
@@ -41,6 +41,8 @@ export default function StepInput({ label, name, nestable = false, options = [] 
     [styles.InvalidInput]: invalid
   });
 
+  console.log("Rendering", label);
+
   return (
     <>
       <Card className={css} margin="xs" padding="xs">
@@ -54,8 +56,12 @@ export default function StepInput({ label, name, nestable = false, options = [] 
           behavior when the actual StepInput gets unmounted (when it is not available for a
           parent selection).
         */}
-        <input type="hidden" ref={register({ required: true, validate })} name={name} />
-        <input type="hidden" ref={register} name={parentFieldName} />
+        {options.length > 0 && (
+          <>
+            <input type="hidden" ref={register({ required: true, validate })} name={name} />
+            <input type="hidden" ref={register} name={parentFieldName} />
+          </>
+        )}
 
         <Button
           fullWidth

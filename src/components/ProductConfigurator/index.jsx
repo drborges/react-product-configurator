@@ -7,7 +7,18 @@ import DimensionsInput from "components/DimensionsInput";
 
 export default function ProductConfigurator() {
   const { register } = useFormContext();
-  const { product, configs, models, options, styles, types, values } = useContext(Context);
+  const {
+    product,
+    configs,
+    models,
+    configOptions,
+    styles,
+    types,
+    typeOptions,
+    values,
+    showConfigOptions,
+    showTypeOptions
+  } = useContext(Context);
 
   return (
     <FlexItem grow maxWidth="md">
@@ -17,9 +28,13 @@ export default function ProductConfigurator() {
         <StepInput label="Model" name="model" options={models} />
         <StepInput label="Styles" name="style" options={styles} />
         <StepInput label="Type" name="type" options={types} />
-        <StepInput label="Config" name="config" options={configs} />
-        {configs.length > 0 &&
-          options?.map((option) => (
+        {!showTypeOptions && <StepInput label="Config" name="config" options={configs} />}
+        {showTypeOptions && (
+          <StepInput label="Type Options" name="typeOptions" options={typeOptions} />
+        )}
+
+        {showConfigOptions &&
+          configOptions?.map((option) => (
             <StepInput
               nestable
               key={option.id}

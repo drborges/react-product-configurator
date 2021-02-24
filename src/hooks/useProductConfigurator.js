@@ -1,6 +1,9 @@
 import { useCallback, useMemo, useState } from "react";
 import { createCollector } from "helpers/collector";
 
+const isConfig = (c) => c.name === "Configs";
+const isNotConfig = (c) => c.name !== "Configs";
+
 export function useProductConfigurator(productConfigs = {}) {
   const [selection, setSelection] = useState({});
   const collector = useMemo(() => createCollector(productConfigs), [productConfigs]);
@@ -16,15 +19,20 @@ export function useProductConfigurator(productConfigs = {}) {
     selection.style
   ]);
 
-  const configs = useMemo(() => collector.collectConfigs(selection.type?.id), [
+  const configs = useMemo(() => collector.collectConfigs(selection.type?.id).filter(isConfig), [
     collector,
     selection.type
   ]);
 
-  const options = useMemo(() => collector.collectOptions(selection.config?.id), [
+  const configOptions = useMemo(() => collector.collectOptions(selection.config?.id), [
     collector,
     selection.config
   ]);
+
+  const typeOptions = useMemo(
+    () => collector.collectChildren(selection.type?.id).filter(isNotConfig),
+    [collector, selection.type]
+  );
 
   const values = useCallback((config) => collector.collectChildren(config?.id) || [], [collector]);
 
@@ -37,6 +45,13 @@ export function useProductConfigurator(productConfigs = {}) {
     }));
   }, []);
 
+  const showConfigOptions = useMemo(() => typeOptions.length === 0 && configs.length > 0, [
+    typeOptions,
+    configs
+  ]);
+
+  const showTypeOptions = useMemo(() => typeOptions.length > 0, [typeOptions]);
+
   return {
     selection,
     select,
@@ -44,9 +59,12 @@ export function useProductConfigurator(productConfigs = {}) {
     models,
     styles,
     types,
+    typeOptions,
     configs,
-    options,
+    configOptions,
     values,
+    showConfigOptions,
+    showTypeOptions,
     product: productConfigs[productConfigs.rootId]
   };
 }
