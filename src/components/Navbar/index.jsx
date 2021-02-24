@@ -1,5 +1,6 @@
 import { Button, Card } from "playbook-ui";
 import { useFormContext } from "react-hook-form";
+import UserSelections from "components/UserSelections";
 
 import styles from "./styles.module.scss";
 
@@ -14,6 +15,7 @@ export default function Navbar() {
       <Button fullWidth variant="link">
         Cancel
       </Button>
+      <UserSelections />
     </Card>
   );
 }
