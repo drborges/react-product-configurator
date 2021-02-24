@@ -8,9 +8,10 @@ export function useStepInput({ name, options }) {
   const [expanded, toggleExpanded] = useToggler();
   const { select, selection } = useContext(Context);
   const parentFieldName = `${name}_parent_id`;
+  const invalid = errors[name];
   const value = selection[name];
-  const handleSelect = useCallback(
-    (name, value) => {
+  const selectOption = useCallback(
+    (value) => {
       // Track user selections outside the form state,
       // this will allow us to initialize new fields with
       // previously selected values as users change options
@@ -26,9 +27,16 @@ export function useStepInput({ name, options }) {
       // this will make it easier to extract all config
       // ids we need to build the product upon clicking "Save"
       setValue(parentFieldName, value?.parentId);
-      toggleExpanded();
     },
-    [parentFieldName, select, setValue, toggleExpanded]
+    [parentFieldName, select, setValue]
+  );
+
+  const handleSelect = useCallback(
+    (value) => {
+      toggleExpanded();
+      selectOption(value);
+    },
+    [selectOption, toggleExpanded]
   );
 
   const disabled = options.length <= 1;
@@ -37,16 +45,14 @@ export function useStepInput({ name, options }) {
   const canAutoSelect = !optionById && options.length === 1;
   const canReconcile = !optionById && optionByName;
   const cantReconcile = !optionById && !optionByName;
-  const invalid = errors[name];
 
   useEffect(() => {
     if (canAutoSelect) {
-      handleSelect(name, options[0]);
+      selectOption(options[0]);
     } else if (canReconcile) {
-      handleSelect(name, optionByName);
+      selectOption(optionByName);
     } else if (cantReconcile && !disabled && !expanded) {
-      handleSelect(name, undefined);
-      toggleExpanded();
+      selectOption(undefined);
     }
   }, [
     name,

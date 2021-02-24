@@ -28,13 +28,6 @@ export default function StepInput({ label, name, nestable = false, options = [] 
     options
   });
 
-  const handleChange = useCallback(
-    (option) => {
-      select(name, option);
-    },
-    [name, select]
-  );
-
   const validate = (id) => {
     const config = lookup(id);
     const { error, notice } = validateFormula(config, getValues()?.dimensions);
@@ -63,8 +56,18 @@ export default function StepInput({ label, name, nestable = false, options = [] 
         */}
         {options.length > 0 && (
           <>
-            <input type="hidden" ref={register({ required: true, validate })} name={name} />
-            <input type="hidden" ref={register} name={parentFieldName} />
+            <input
+              type="hidden"
+              ref={register({ required: true, validate })}
+              name={name}
+              defaultValue={value?.id}
+            />
+            <input
+              type="hidden"
+              ref={register}
+              name={parentFieldName}
+              defaultValue={value?.parentId}
+            />
           </>
         )}
 
@@ -89,7 +92,7 @@ export default function StepInput({ label, name, nestable = false, options = [] 
               name={name}
               option={option}
               value={value}
-              onChange={handleChange}
+              onChange={select}
             />
           ))}
       </Card>
