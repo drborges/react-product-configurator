@@ -19,7 +19,7 @@ export function useProductConfigurator(productConfigs = {}) {
     selection.style
   ]);
 
-  const configs = useMemo(() => collector.collectConfigs(selection.type?.id).filter(isConfig), [
+  const configs = useMemo(() => collector.collectConfigs(selection.type?.id), [
     collector,
     selection.type
   ]);

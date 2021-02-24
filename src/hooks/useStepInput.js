@@ -3,10 +3,11 @@ import { useCallback, useContext, useEffect, useMemo } from "react";
 import { useFormContext } from "react-hook-form";
 import { useToggler } from "./useToggler";
 
-export function useSelectionReconciler({ name, parentFieldName, options }) {
+export function useStepInput({ name, options }) {
   const { errors, setValue } = useFormContext();
   const [expanded, toggleExpanded] = useToggler();
   const { select, selection } = useContext(Context);
+  const parentFieldName = `${name}_parent_id`;
   const value = selection[name];
   const handleSelect = useCallback(
     (name, value) => {
@@ -25,8 +26,9 @@ export function useSelectionReconciler({ name, parentFieldName, options }) {
       // this will make it easier to extract all config
       // ids we need to build the product upon clicking "Save"
       setValue(parentFieldName, value?.parentId);
+      toggleExpanded();
     },
-    [parentFieldName, select, setValue]
+    [parentFieldName, select, setValue, toggleExpanded]
   );
 
   const disabled = options.length <= 1;
@@ -67,6 +69,7 @@ export function useSelectionReconciler({ name, parentFieldName, options }) {
     expanded,
     toggleExpanded,
     value,
+    parentFieldName,
     select: handleSelect
   };
 }
