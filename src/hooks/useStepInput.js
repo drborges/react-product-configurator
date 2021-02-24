@@ -11,30 +11,30 @@ export function useStepInput({ name, options }) {
   const invalid = errors[name];
   const value = selection[name];
   const selectOption = useCallback(
-    (value) => {
-      // Track user selections outside the form state,
-      // this will allow us to initialize new fields with
-      // previously selected values as users change options
-      // higher in the tree, e.g., changing the style or model
-      // we'd be able to keep the state of previouslly selected
-      // options, such as "Color", "Grid Pattern", etc...
-      select(name, value);
-      setValue(name, value?.id, {
+    (option) => {
+      setValue(name, option?.id, {
         shouldValidate: true,
         shouldDirty: true
       });
       // Make sure we track the parent config as well
       // this will make it easier to extract all config
       // ids we need to build the product upon clicking "Save"
-      setValue(parentFieldName, value?.parentId);
+      setValue(parentFieldName, option?.parentId);
+      // Track user selections outside the form state,
+      // this will allow us to initialize new fields with
+      // previously selected values as users change options
+      // higher in the tree, e.g., changing the style or model
+      // we'd be able to keep the state of previouslly selected
+      // options, such as "Color", "Grid Pattern", etc...
+      select(name, option);
     },
-    [parentFieldName, select, setValue]
+    [name, parentFieldName, select, setValue]
   );
 
   const handleSelect = useCallback(
     (value) => {
       toggleExpanded();
-      selectOption(value);
+      setTimeout(() => selectOption(value), 0);
     },
     [selectOption, toggleExpanded]
   );
@@ -49,24 +49,22 @@ export function useStepInput({ name, options }) {
   useEffect(() => {
     if (canAutoSelect) {
       selectOption(options[0]);
+      console.log(">>>>> AUTO SELECTED", name);
     } else if (canReconcile) {
       selectOption(optionByName);
-    } else if (cantReconcile && !disabled && !expanded) {
+      console.log(">>>>> CAN RECONCILE", name);
+    } else if (cantReconcile && !disabled && !invalid) {
+      console.log(">>>>> CANNOT RECONCILE", name);
       selectOption(undefined);
     }
-  }, [
-    name,
-    expanded,
-    canAutoSelect,
-    canReconcile,
-    handleSelect,
-    optionByName,
-    options,
-    toggleExpanded
-  ]);
+  }, [canAutoSelect, canReconcile, disabled, invalid, optionByName, options, selectOption]);
 
   useEffect(() => {
-    if (invalid && !expanded) toggleExpanded();
+    if (invalid && !expanded) {
+      console.log(">>>>> INVALID AND NOT EXPANDED", name);
+      console.log(">>>>> INVALID", invalid);
+      toggleExpanded();
+    }
   }, [invalid]);
 
   return {

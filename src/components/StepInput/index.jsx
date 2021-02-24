@@ -39,8 +39,6 @@ export default function StepInput({ label, name, nestable = false, options = [] 
     [styles.InvalidInput]: invalid
   });
 
-  console.log("Rendering", label);
-
   return (
     <>
       <Card className={css} margin="xs" padding="xs">
