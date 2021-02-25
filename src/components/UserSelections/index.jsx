@@ -8,8 +8,8 @@ export default function UserSelections() {
   return (
     <Flex orientation="column">
       <Title marginY="md">User Selections</Title>
-      {Object.entries(data).map(([key, data]) =>
-        key === "dimensions" ? (
+      {Object.entries(data).map(([key, data]) => {
+        return key === "dimensions" ? (
           <div key={key}>
             <Caption size="xs">
               Width: <strong>{data.width}</strong>
@@ -22,8 +22,8 @@ export default function UserSelections() {
           <Caption key={key} size="xs">
             {key}: <strong>{data}</strong>
           </Caption>
-        )
-      )}
+        );
+      })}
     </Flex>
   );
 }

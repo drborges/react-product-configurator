@@ -65,6 +65,6 @@ export function useProductConfigurator(productConfigs = {}) {
     values,
     showConfigOptions,
     showTypeOptions,
-    product: productConfigs[productConfigs.rootId]
+    rootNode: productConfigs[productConfigs.rootId]
   };
 }
