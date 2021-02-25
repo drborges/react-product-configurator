@@ -6,12 +6,13 @@ import { useNodeInput } from "hooks/useNodeInput";
 
 import styles from "./styles.module.scss";
 
-function QuestionInput({ node = {}, label, type }) {
+function QuestionInput({ node = {}, label = node.name, type }) {
   const {
     disabled,
     error,
     expanded,
     name,
+    notice,
     options = [],
     select,
     toggleExpanded,
@@ -36,10 +37,11 @@ function QuestionInput({ node = {}, label, type }) {
           variant="link"
           onClick={toggleExpanded}
         >
-          {label || name}
+          {label}
         </Button>
 
         {error && <Alert>{error}</Alert>}
+        {!error && notice && <Alert level="warning">{notice}</Alert>}
 
         {!expanded && options.length > 0 && <Title>{value?.name}</Title>}
 
@@ -54,7 +56,7 @@ function QuestionInput({ node = {}, label, type }) {
             />
           ))}
       </Card>
-      {value && value.type !== "leaf" && <NodeInput node={value} type={type} />}
+      {value && <NodeInput node={value} type={type} />}
     </>
   );
 }
@@ -85,9 +87,9 @@ const mapping = {
 };
 
 export default function NodeInput({ node = {}, type }) {
+  if (node.type === "leaf") return null;
   if (node.childrenIds.length === 0) return null;
-  if (node.name === "Additional Details") type = "followup";
-  if (node.name === "Special Options (ie. Full Screen, Obscure Glass, etc)") type = "group";
+  if (node.name === "Additional Details") return null;
 
   const Input = mapping[type || node.type];
 

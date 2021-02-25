@@ -1,18 +1,18 @@
 import Context from "Context";
-import { useCallback, useContext, useEffect, useMemo } from "react";
+import { useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { useFormContext } from "react-hook-form";
 import { useToggler } from "hooks/useToggler";
 import { validateFormula } from "helpers/validation";
 
 export function useNodeInput(node) {
+  const [notice, setNotice] = useState(null);
   const [expanded, toggleExpanded] = useToggler();
   const { errors, getValues, register, setValue } = useFormContext();
   const { lookup, select, selection, values } = useContext(Context);
 
-  const disabled = false;
   // Workaround issue using strings with "." as object keys 🤷🏻‍♂️
-  const name = node.name.replace(".", "");
-  const error = errors[name];
+  const name = useMemo(() => node.name.replace(".", ""), [node]);
+  const error = errors[name]?.message;
   const options = values(node);
   const value = selection[name];
 
@@ -20,7 +20,12 @@ export function useNodeInput(node) {
     (id) => {
       const config = lookup(id);
       const { error, notice } = validateFormula(config, getValues()?.dimensions);
-      return error || notice;
+      if (notice) {
+        setNotice(notice);
+      } else {
+        setNotice(null);
+      }
+      return error;
     },
     [getValues, lookup]
   );
@@ -58,6 +63,24 @@ export function useNodeInput(node) {
     [selectOption, toggleExpanded]
   );
 
+  const disabled = options.length <= 1;
+  const optionById = useMemo(() => options.find((o) => o.id === value?.id), [options, value]);
+  const optionByName = useMemo(() => options.find((o) => o.name === value?.name), [options, value]);
+  const canAutoSelect = !optionById && options.length === 1;
+  const canReconcile = !optionById && optionByName;
+  const cantReconcile = !optionById && !optionByName;
+
+  useEffect(() => {
+    if (canAutoSelect) {
+      selectOption(options[0]);
+    } else if (canReconcile) {
+      selectOption(optionByName);
+    } else if (cantReconcile && !disabled && !error) {
+      selectOption(undefined);
+      console.log(">>>>> cannot reconcile!");
+    }
+  }, [error]);
+
   useEffect(() => {
     if (error && !expanded) {
       toggleExpanded();
@@ -67,6 +90,7 @@ export function useNodeInput(node) {
   return {
     disabled,
     error,
+    notice,
     expanded,
     lookup,
     name,
