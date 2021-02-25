@@ -1,42 +1,19 @@
 import Context from "Context";
-import { useCallback, useContext, useEffect, useMemo, useState } from "react";
+import { useCallback, useContext, useEffect, useMemo } from "react";
 import { useFormContext } from "react-hook-form";
 import { useToggler } from "hooks/useToggler";
-import { validateFormula } from "helpers/validation";
+import { useInputValidations } from "./useInputValidations";
 
 export function useNodeInput(node) {
-  const [notice, setNotice] = useState(null);
   const [expanded, toggleExpanded] = useToggler();
-  const { errors, getValues, register, setValue } = useFormContext();
+  const { register, setValue } = useFormContext();
+  const { error, notice, validations } = useInputValidations(node);
   const { lookup, select, selection, values } = useContext(Context);
-
   // Workaround issue using strings with "." as object keys 🤷🏻‍♂️
-  const name = useMemo(() => node.name.replace(".", ""), [node]);
-  const error = errors[name]?.message;
+  const name = node.name; // useMemo(() => node.name.replace(".", ""), [node]);
+
   const options = values(node);
   const value = selection[name];
-
-  const validate = useCallback(
-    (id) => {
-      const config = lookup(id);
-      const { error, notice } = validateFormula(config, getValues()?.dimensions);
-      if (notice) {
-        setNotice(notice);
-      } else {
-        setNotice(null);
-      }
-      return error;
-    },
-    [getValues, lookup]
-  );
-
-  const validations = useMemo(
-    () => ({
-      required: true,
-      validate
-    }),
-    [validate]
-  );
 
   const selectOption = useCallback(
     (option) => {
@@ -58,7 +35,7 @@ export function useNodeInput(node) {
   const handleSelect = useCallback(
     (value) => {
       toggleExpanded();
-      setTimeout(() => selectOption(value), 0);
+      selectOption(value);
     },
     [selectOption, toggleExpanded]
   );
@@ -75,17 +52,19 @@ export function useNodeInput(node) {
       selectOption(options[0]);
     } else if (canReconcile) {
       selectOption(optionByName);
-    } else if (cantReconcile && !disabled && !error) {
-      selectOption(undefined);
-      console.log(">>>>> cannot reconcile!");
+    } else if (cantReconcile && !disabled && !error && !expanded) {
+      handleSelect(undefined);
     }
-  }, [error]);
-
-  useEffect(() => {
-    if (error && !expanded) {
-      toggleExpanded();
-    }
-  }, [error, expanded, toggleExpanded]);
+  }, [
+    canAutoSelect,
+    canReconcile,
+    cantReconcile,
+    disabled,
+    error,
+    optionById,
+    optionByName,
+    selectOption
+  ]);
 
   return {
     disabled,
