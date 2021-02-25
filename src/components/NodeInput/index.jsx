@@ -1,97 +1,27 @@
-import classnames from "classnames";
-import { Button, Card, Title } from "playbook-ui";
-import Alert from "components/Alert";
-import CardInput from "components/CardInput";
-import { useNodeInput } from "hooks/useNodeInput";
-
-import styles from "./styles.module.scss";
-
-function QuestionInput({ node = {}, label = node.name, type }) {
-  const {
-    disabled,
-    error,
-    expanded,
-    name,
-    notice,
-    options = [],
-    select,
-    toggleExpanded,
-    register,
-    validations,
-    value
-  } = useNodeInput(node);
-  const css = classnames(styles.NodeInput, {
-    [styles.Disabled]: disabled,
-    [styles.Invalid]: error
-  });
-
-  return (
-    <>
-      <Card className={css} margin="xs" padding="xs">
-        <input type="hidden" ref={register(validations)} name={name} defaultValue={value?.id} />
-
-        <Button
-          fullWidth
-          padding="none"
-          className={disabled ? "disabled" : null}
-          variant="link"
-          onClick={toggleExpanded}
-        >
-          {label}
-        </Button>
-
-        {error && <Alert>{error}</Alert>}
-        {!error && notice && <Alert level="warning">{notice}</Alert>}
-
-        {!expanded && options.length > 0 && <Title>{value?.name}</Title>}
-
-        {expanded &&
-          options.map((option) => (
-            <CardInput
-              key={option.id}
-              name={name}
-              option={option}
-              value={value}
-              onChange={select}
-            />
-          ))}
-      </Card>
-      {value && <NodeInput node={value} type={type} />}
-    </>
-  );
-}
-
-function FollowupInput({ node, type }) {
-  return <QuestionInput node={node} label={`${node.name} Options`} type={type} />;
-}
-
-function GroupInput({ node, type }) {
-  const { name, options = [], register } = useNodeInput(node);
-
-  return (
-    <>
-      <input type="hidden" ref={register} name={name} defaultValue={node.id} />
-      {options.map((option) => (
-        <NodeInput key={option.id} node={option} type={type} />
-      ))}
-    </>
-  );
-}
+import { GroupNode } from "./GroupNode";
+import { FollowupNode } from "./FollowupNode";
+import { QuestionInput } from "./QuestionInput";
+import { InstallationDetailsNode } from "./InstallationDetailsNode";
 
 const mapping = {
   question: QuestionInput,
-  followup: FollowupInput,
+  followup: FollowupNode,
   option: QuestionInput,
-  node: GroupInput,
-  group: GroupInput
+  node: GroupNode,
+  group: GroupNode,
+  details: InstallationDetailsNode
 };
 
 export default function NodeInput({ node = {}, type }) {
-  if (node.type === "leaf") return null;
+  // If Node has no children, we've hit a leaf of the tree, thus, nothing to render
   if (node.childrenIds.length === 0) return null;
-  if (node.name === "Additional Details") return null;
+  // Currently skipping Additional Details, eventually we'll have a special node to
+  // handle this branch of the tree
+  if (node.name === "Additional Details") {
+    type = "details";
+  }
 
   const Input = mapping[type || node.type];
 
-  return <Input node={node} />;
+  return <Input node={node} type={type} />;
 }
