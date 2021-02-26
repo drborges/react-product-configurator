@@ -1,3 +1,3 @@
-export function InstallationDetailsNode({ node, type }) {
+export function InstallationDetailsNode({ node }) {
   return null;
 }

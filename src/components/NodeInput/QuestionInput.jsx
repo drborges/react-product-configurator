@@ -1,12 +1,14 @@
 import classnames from "classnames";
 import { Button, Card, Title } from "playbook-ui";
+
+import NodeInput from "./index";
 import Alert from "components/Alert";
 import CardInput from "components/CardInput";
 import { useNodeInput } from "hooks/useNodeInput";
-import styles from "./styles.module.scss";
-import NodeInput from "./index";
 
-export function QuestionInput({ node = {}, label = node.name, type }) {
+import styles from "./styles.module.scss";
+
+export function QuestionInput({ node = {}, label = node.name }) {
   const {
     disabled,
     error,
@@ -20,6 +22,7 @@ export function QuestionInput({ node = {}, label = node.name, type }) {
     validations,
     value
   } = useNodeInput(node);
+
   const css = classnames(styles.NodeInput, {
     [styles.Disabled]: disabled,
     [styles.Invalid]: error
@@ -56,7 +59,7 @@ export function QuestionInput({ node = {}, label = node.name, type }) {
             />
           ))}
       </Card>
-      {value && <NodeInput node={value} type={type} />}
+      {value && <NodeInput node={value} />}
     </>
   );
 }

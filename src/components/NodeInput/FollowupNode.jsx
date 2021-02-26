@@ -1,5 +1,5 @@
-import { QuestionInput } from "./index";
+import { QuestionInput } from "./QuestionInput";
 
-export function FollowupNode({ node, type }) {
-  return <QuestionInput node={node} label={`${node.name} Options`} type={type} />;
+export function FollowupNode({ node }) {
+  return <QuestionInput node={node} label={`${node.name} Options`} />;
 }

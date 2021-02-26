@@ -9,19 +9,17 @@ const mapping = {
   option: QuestionInput,
   node: GroupNode,
   group: GroupNode,
-  details: InstallationDetailsNode
 };
 
-export default function NodeInput({ node = {}, type }) {
+export default function NodeInput({ node = {} }) {
   // If Node has no children, we've hit a leaf of the tree, thus, nothing to render
   if (node.childrenIds.length === 0) return null;
   // Currently skipping Additional Details, eventually we'll have a special node to
   // handle this branch of the tree
   if (node.name === "Additional Details") {
-    type = "details";
+    return <InstallationDetailsNode node={node} />
   }
 
-  const Input = mapping[type || node.type];
-
-  return <Input node={node} type={type} />;
+  const Input = mapping[node.type];
+  return <Input node={node} />;
 }
