@@ -4,12 +4,19 @@ import UserSelections from "components/UserSelections";
 
 import styles from "./styles.module.scss";
 
+const isEmpty = value =>
+  value === null ||
+  value === undefined ||
+  value === "" ||
+  typeof value === "object" && Object.keys(value).length === 0 ||
+  Array.isArray(value) && value.lenght === 0
+
 export default function Navbar() {
-  const { formState } = useFormContext();
+  const { errors } = useFormContext();
 
   return (
     <Card marginRight="xs" className={styles.Navbar}>
-      <Button disabled={!formState.isValid} fullWidth htmlType="submit">
+      <Button disabled={!isEmpty(errors)} fullWidth htmlType="submit">
         Save
       </Button>
       <Button fullWidth variant="link">

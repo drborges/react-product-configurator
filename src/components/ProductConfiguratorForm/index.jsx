@@ -10,7 +10,7 @@ export default function Form({ decisionTree = {} }) {
   const { handleSubmit } = useFormContext();
   const engine = useDecisionTree(decisionTree);
   const onSubmit = (values) => {
-    console.log("Product Config Ids:", Object.values(values));
+    console.log("Product Config Ids:", values);
   };
 
   return (
