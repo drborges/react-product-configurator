@@ -4,7 +4,6 @@ import "playbook-ui/dist/playbook.css";
 import "playbook-ui/dist/fonts/regular-min";
 import "playbook-ui/dist/fonts/fontawesome-min";
 
-import tree from "data/1-1-decision-tree.json";
 import Form from "components/ProductConfiguratorForm";
 
 export default function App() {
@@ -15,7 +14,7 @@ export default function App() {
 
   return (
     <FormProvider {...api}>
-      <Form decisionTree={tree} />
+      <Form />
     </FormProvider>
   );
 }

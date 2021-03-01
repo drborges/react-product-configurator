@@ -1,5 +1,5 @@
 import classnames from "classnames";
-import { Button, Card, Title } from "playbook-ui";
+import { Button, Card, Icon, Title } from "playbook-ui";
 
 import Alert from "components/Alert";
 import CardInput from "components/CardInput";
@@ -36,11 +36,13 @@ export default function StepInput({ step = {} }) {
           padding="none"
           variant="link"
         >
-          {step.name}
+          {error && <span><Icon fixedWidth icon="exclamation-circle" /></span>}
+          {!error && notice && <span><Icon fixedWidth icon="exclamation-circle" /></span>}
+          { step.name }
         </Button>
 
-        {error && error.message && <Alert>{error.message}</Alert>}
-        {!error && notice && <Alert level="warning">{notice}</Alert>}
+        {expanded && error && error.message && <Alert>{error.message}</Alert>}
+        {expanded && !error && notice && <Alert level="warning">{notice}</Alert>}
 
         {!expanded && <Title>{value?.name}</Title>}
 

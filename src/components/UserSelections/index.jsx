@@ -37,13 +37,17 @@ export default function UserSelections() {
         <Title marginY="md">Form Errors</Title>
         { Object.entries(errors).map(([field, error]) => {
           return field === "dimensions" ? (
-            <div key={field}>
-              <Caption size="xs">
-                Width: <strong>{errorType(error.width)}</strong>
-              </Caption>
-              <Caption size="xs">
-                Height: <strong>{errorType(error.height)}</strong>
-              </Caption>
+            <div key={ field }>
+              {error.width && (
+                <Caption size="xs">
+                  Width: <strong>{errorType(error.width)}</strong>
+                </Caption>
+              )}
+              {error.height && (
+                <Caption size="xs">
+                  Height: <strong>{errorType(error.height)}</strong>
+                </Caption>
+              )}
             </div>
           ) : (
             <Caption key={field} size="xs">
