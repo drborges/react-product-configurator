@@ -1,65 +1,61 @@
 import classnames from "classnames";
 import { Button, Card, Title } from "playbook-ui";
 
-import NodeInput from "./index";
 import Alert from "components/Alert";
 import CardInput from "components/CardInput";
-import { useNodeInput } from "hooks/useNodeInput";
+import { useStepInput } from "hooks/useStepInput";
 
 import styles from "./styles.module.scss";
 
-export function QuestionInput({ node = {}, label = node.name }) {
+export default function StepInput({ step = {} }) {
   const {
-    disabled,
     error,
     expanded,
     name,
+    next,
     notice,
-    options = [],
     select,
     toggleExpanded,
-    register,
-    validations,
+    ref,
     value
-  } = useNodeInput(node);
+  } = useStepInput(step);
 
-  const css = classnames(styles.NodeInput, {
-    [styles.Disabled]: disabled,
+  const nextSteps = next(value)
+  const css = classnames(styles.StepInput, {
     [styles.Invalid]: error
   });
 
   return (
     <>
       <Card className={css} margin="xs" padding="xs">
-        <input type="hidden" ref={register(validations)} name={name} defaultValue={node.id} />
+        <input type="hidden" ref={ref} name={name} defaultValue={value?.id || step.defaultValue} />
 
         <Button
           fullWidth
-          padding="none"
-          className={disabled ? "disabled" : null}
-          variant="link"
           onClick={toggleExpanded}
+          padding="none"
+          variant="link"
         >
-          {label}
+          {step.name}
         </Button>
 
         {error && error.message && <Alert>{error.message}</Alert>}
         {!error && notice && <Alert level="warning">{notice}</Alert>}
 
-        {!expanded && options.length > 0 && <Title>{value?.name}</Title>}
+        {!expanded && <Title>{value?.name}</Title>}
 
         {expanded &&
-          options.map((option) => (
+          step.options.map((option) => (
             <CardInput
               key={option.id}
-              name={name}
+              name={`${step.name}-card-input`}
               option={option}
               value={value}
               onChange={select}
             />
           ))}
       </Card>
-      {value && <NodeInput node={value} />}
+      {nextSteps.map(step => <StepInput key={step.id} step={step} />)}
     </>
   );
 }

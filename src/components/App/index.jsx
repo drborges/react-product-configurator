@@ -4,7 +4,7 @@ import "playbook-ui/dist/playbook.css";
 import "playbook-ui/dist/fonts/regular-min";
 import "playbook-ui/dist/fonts/fontawesome-min";
 
-import windowsConfig from "data/windows.configs.json";
+import tree from "data/1-1-decision-tree.json";
 import Form from "components/ProductConfiguratorForm";
 
 export default function App() {
@@ -15,7 +15,7 @@ export default function App() {
 
   return (
     <FormProvider {...api}>
-      <Form decisionTree={windowsConfig} />
+      <Form decisionTree={tree} />
     </FormProvider>
   );
 }
