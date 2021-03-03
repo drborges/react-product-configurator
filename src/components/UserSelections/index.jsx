@@ -8,8 +8,8 @@ const errorType = error => {
 }
 
 export default function UserSelections() {
-  const { getValues, errors } = useFormContext();
-  const data = getValues();
+  const { watch, errors } = useFormContext();
+  const data = watch();
 
   return (
     <Flex orientation="column">

@@ -19,30 +19,24 @@ export function useStepInput(step) {
   const canReconcile = !optionById && optionByName;
   const cantReconcile = !optionById && !optionByName;
 
-  const selectOption = useCallback(
-    (option) => {
-      setValue(step.name, option?.id, {
-        shouldValidate: true,
-        shouldDirty: true
-      });
-      // Track user selections outside the form state,
-      // this will allow us to initialize new fields with
-      // previously selected values as users change options
-      // higher in the tree, e.g., changing the style or model
-      // we'd be able to keep the state of previouslly selected
-      // options, such as "Color", "Grid Pattern", etc...
-      select(step.name, option);
-    },
-    [step, select, setValue]
-  );
+  const selectOption = useCallback((option) => {
+    setValue(step.name, option?.id, {
+      shouldValidate: true,
+      shouldDirty: true
+    });
+    // Track user selections outside the form state,
+    // this will allow us to initialize new fields with
+    // previously selected values as users change options
+    // higher in the tree, e.g., changing the style or model
+    // we'd be able to keep the state of previouslly selected
+    // options, such as "Color", "Grid Pattern", etc...
+    select(step.name, option);
+  }, [step, select, setValue]);
 
-  const handleSelect = useCallback(
-    (option) => {
-      toggleExpanded();
-      selectOption(option);
-    },
-    [selectOption, toggleExpanded]
-  );
+  const handleSelect = useCallback((option) => {
+    selectOption(option);
+    toggleExpanded();
+  }, [selectOption, toggleExpanded]);
 
   useEffect(() => {
     if (canAutoSelect) {

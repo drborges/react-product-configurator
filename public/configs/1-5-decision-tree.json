@@ -1,0 +1,1310 @@
+{
+  "9": [
+    {
+      "id": 10,
+      "name": "Model",
+      "options": [
+        {
+          "id": 28979,
+          "name": "GAF",
+          "image": "GAFLogo.jpg",
+          "restrictionFormula": ""
+        },
+        {
+          "id": 205532,
+          "name": "Velux",
+          "image": "velux.jpg",
+          "restrictionFormula": ""
+        },
+        {
+          "id": 206315,
+          "name": "Trim & Accessories",
+          "image": null,
+          "restrictionFormula": ""
+        }
+      ],
+      "pathIds": [
+        9,
+        10
+      ],
+      "defaultValue": null,
+      "restrictionFormula": ""
+    },
+    {
+      "id": 15,
+      "name": "Installation Detail",
+      "options": [
+        {
+          "id": 34933,
+          "name": "None",
+          "image": null,
+          "restrictionFormula": ""
+        }
+      ],
+      "pathIds": [
+        9,
+        15
+      ],
+      "defaultValue": 34933,
+      "restrictionFormula": ""
+    }
+  ],
+  "28979": [
+    {
+      "id": 28980,
+      "name": "Style",
+      "options": [
+        {
+          "id": 733176,
+          "name": "Fortitude",
+          "image": null,
+          "restrictionFormula": ""
+        },
+        {
+          "id": 211819,
+          "name": "Replace Wood",
+          "image": null,
+          "restrictionFormula": ""
+        },
+        {
+          "id": 231279,
+          "name": "Low Slope",
+          "image": null,
+          "restrictionFormula": ""
+        }
+      ],
+      "pathIds": [
+        9,
+        10,
+        28979,
+        28980
+      ],
+      "defaultValue": null,
+      "restrictionFormula": ""
+    }
+  ],
+  "205532": [
+    {
+      "id": 205533,
+      "name": "Style",
+      "options": [
+        {
+          "id": 205534,
+          "name": "None",
+          "image": null,
+          "restrictionFormula": ""
+        }
+      ],
+      "pathIds": [
+        9,
+        10,
+        205532,
+        205533
+      ],
+      "defaultValue": 205534,
+      "restrictionFormula": ""
+    }
+  ],
+  "205534": [
+    {
+      "id": 205535,
+      "name": "Type",
+      "options": [
+        {
+          "id": 205536,
+          "name": "None",
+          "image": null,
+          "restrictionFormula": ""
+        }
+      ],
+      "pathIds": [
+        9,
+        10,
+        205532,
+        205533,
+        205534,
+        205535
+      ],
+      "defaultValue": 205536,
+      "restrictionFormula": ""
+    }
+  ],
+  "205536": [
+    {
+      "id": 205537,
+      "name": "Config",
+      "options": [
+        {
+          "id": 205538,
+          "name": "None",
+          "image": null,
+          "restrictionFormula": ""
+        }
+      ],
+      "pathIds": [
+        9,
+        10,
+        205532,
+        205533,
+        205534,
+        205535,
+        205536,
+        205537
+      ],
+      "defaultValue": 205538,
+      "restrictionFormula": ""
+    }
+  ],
+  "205539": [
+    {
+      "id": 205540,
+      "name": "Color",
+      "options": [
+        {
+          "id": 205541,
+          "name": "Cool Grey",
+          "image": null,
+          "restrictionFormula": ""
+        }
+      ],
+      "pathIds": [
+        9,
+        10,
+        205532,
+        205533,
+        205534,
+        205535,
+        205536,
+        205537,
+        205538,
+        205539,
+        205540
+      ],
+      "defaultValue": 205541,
+      "restrictionFormula": ""
+    }
+  ],
+  "206315": [
+    {
+      "id": 206316,
+      "name": "Style",
+      "options": [
+        {
+          "id": 206317,
+          "name": "Shutters",
+          "image": null,
+          "restrictionFormula": ""
+        }
+      ],
+      "pathIds": [
+        9,
+        10,
+        206315,
+        206316
+      ],
+      "defaultValue": 206317,
+      "restrictionFormula": ""
+    }
+  ],
+  "206317": [
+    {
+      "id": 206318,
+      "name": "Type",
+      "options": [
+        {
+          "id": 206319,
+          "name": "No Hinge",
+          "image": null,
+          "restrictionFormula": ""
+        },
+        {
+          "id": 206321,
+          "name": "Hinged",
+          "image": null,
+          "restrictionFormula": ""
+        },
+        {
+          "id": 206323,
+          "name": "Hinged with S-hook",
+          "image": null,
+          "restrictionFormula": ""
+        },
+        {
+          "id": 206325,
+          "name": "Remove and Reinstall",
+          "image": null,
+          "restrictionFormula": ""
+        }
+      ],
+      "pathIds": [
+        9,
+        10,
+        206315,
+        206316,
+        206317,
+        206318
+      ],
+      "defaultValue": null,
+      "restrictionFormula": ""
+    }
+  ],
+  "206319": [
+    {
+      "id": 206320,
+      "name": "Config",
+      "options": [
+        {
+          "id": 206327,
+          "name": "Panel",
+          "image": null,
+          "restrictionFormula": ""
+        },
+        {
+          "id": 206329,
+          "name": "Louver",
+          "image": null,
+          "restrictionFormula": ""
+        }
+      ],
+      "pathIds": [
+        9,
+        10,
+        206315,
+        206316,
+        206317,
+        206318,
+        206319,
+        206320
+      ],
+      "defaultValue": null,
+      "restrictionFormula": ""
+    }
+  ],
+  "206321": [
+    {
+      "id": 206322,
+      "name": "Config",
+      "options": [
+        {
+          "id": 206373,
+          "name": "Panel",
+          "image": null,
+          "restrictionFormula": ""
+        },
+        {
+          "id": 206375,
+          "name": "Louver",
+          "image": null,
+          "restrictionFormula": ""
+        }
+      ],
+      "pathIds": [
+        9,
+        10,
+        206315,
+        206316,
+        206317,
+        206318,
+        206321,
+        206322
+      ],
+      "defaultValue": null,
+      "restrictionFormula": ""
+    }
+  ],
+  "206323": [
+    {
+      "id": 206324,
+      "name": "Config",
+      "options": [
+        {
+          "id": 206419,
+          "name": "Panel",
+          "image": null,
+          "restrictionFormula": ""
+        },
+        {
+          "id": 206421,
+          "name": "Louver",
+          "image": null,
+          "restrictionFormula": ""
+        }
+      ],
+      "pathIds": [
+        9,
+        10,
+        206315,
+        206316,
+        206317,
+        206318,
+        206323,
+        206324
+      ],
+      "defaultValue": null,
+      "restrictionFormula": ""
+    }
+  ],
+  "206325": [
+    {
+      "id": 206326,
+      "name": "Config",
+      "options": [
+        {
+          "id": 206465,
+          "name": "None",
+          "image": null,
+          "restrictionFormula": ""
+        }
+      ],
+      "pathIds": [
+        9,
+        10,
+        206315,
+        206316,
+        206317,
+        206318,
+        206325,
+        206326
+      ],
+      "defaultValue": 206465,
+      "restrictionFormula": ""
+    }
+  ],
+  "206327": [
+    {
+      "id": 206331,
+      "name": "Color",
+      "options": [
+        {
+          "id": 206333,
+          "name": "Black",
+          "image": null,
+          "restrictionFormula": ""
+        },
+        {
+          "id": 206334,
+          "name": "Wedgewood Blue",
+          "image": null,
+          "restrictionFormula": ""
+        },
+        {
+          "id": 206335,
+          "name": "Clay",
+          "image": null,
+          "restrictionFormula": ""
+        },
+        {
+          "id": 206336,
+          "name": "Federal Brown",
+          "image": null,
+          "restrictionFormula": ""
+        },
+        {
+          "id": 206337,
+          "name": "Musket Brown",
+          "image": null,
+          "restrictionFormula": ""
+        },
+        {
+          "id": 206338,
+          "name": "Tuxedo Grey",
+          "image": null,
+          "restrictionFormula": ""
+        },
+        {
+          "id": 206339,
+          "name": "Wicker",
+          "image": null,
+          "restrictionFormula": ""
+        },
+        {
+          "id": 206341,
+          "name": "Forest Green",
+          "image": null,
+          "restrictionFormula": ""
+        },
+        {
+          "id": 206342,
+          "name": "Classic Blue",
+          "image": null,
+          "restrictionFormula": ""
+        },
+        {
+          "id": 206343,
+          "name": "Wineberry",
+          "image": null,
+          "restrictionFormula": ""
+        },
+        {
+          "id": 206344,
+          "name": "Bright White",
+          "image": null,
+          "restrictionFormula": ""
+        },
+        {
+          "id": 731930,
+          "name": "Burgundy",
+          "image": null,
+          "restrictionFormula": ""
+        }
+      ],
+      "pathIds": [
+        9,
+        10,
+        206315,
+        206316,
+        206317,
+        206318,
+        206319,
+        206320,
+        206327,
+        206328,
+        206331
+      ],
+      "defaultValue": null,
+      "restrictionFormula": ""
+    }
+  ],
+  "206329": [
+    {
+      "id": 206352,
+      "name": "Color",
+      "options": [
+        {
+          "id": 206354,
+          "name": "Black",
+          "image": null,
+          "restrictionFormula": ""
+        },
+        {
+          "id": 206355,
+          "name": "Wedgewood Blue",
+          "image": null,
+          "restrictionFormula": ""
+        },
+        {
+          "id": 206356,
+          "name": "Clay",
+          "image": null,
+          "restrictionFormula": ""
+        },
+        {
+          "id": 206357,
+          "name": "Federal Brown",
+          "image": null,
+          "restrictionFormula": ""
+        },
+        {
+          "id": 206358,
+          "name": "Musket Brown",
+          "image": null,
+          "restrictionFormula": ""
+        },
+        {
+          "id": 206359,
+          "name": "Tuxedo Grey",
+          "image": null,
+          "restrictionFormula": ""
+        },
+        {
+          "id": 206360,
+          "name": "Wicker",
+          "image": null,
+          "restrictionFormula": ""
+        },
+        {
+          "id": 206362,
+          "name": "Forest Green",
+          "image": null,
+          "restrictionFormula": ""
+        },
+        {
+          "id": 206363,
+          "name": "Classic Blue",
+          "image": null,
+          "restrictionFormula": ""
+        },
+        {
+          "id": 206364,
+          "name": "Wineberry",
+          "image": null,
+          "restrictionFormula": ""
+        },
+        {
+          "id": 206365,
+          "name": "Bright White",
+          "image": null,
+          "restrictionFormula": ""
+        },
+        {
+          "id": 731929,
+          "name": "Burgundy",
+          "image": null,
+          "restrictionFormula": ""
+        }
+      ],
+      "pathIds": [
+        9,
+        10,
+        206315,
+        206316,
+        206317,
+        206318,
+        206319,
+        206320,
+        206329,
+        206330,
+        206352
+      ],
+      "defaultValue": null,
+      "restrictionFormula": ""
+    }
+  ],
+  "206373": [
+    {
+      "id": 206377,
+      "name": "Color",
+      "options": [
+        {
+          "id": 206379,
+          "name": "Black",
+          "image": null,
+          "restrictionFormula": ""
+        },
+        {
+          "id": 206380,
+          "name": "Wedgewood Blue",
+          "image": null,
+          "restrictionFormula": ""
+        },
+        {
+          "id": 206381,
+          "name": "Clay",
+          "image": null,
+          "restrictionFormula": ""
+        },
+        {
+          "id": 206382,
+          "name": "Federal Brown",
+          "image": null,
+          "restrictionFormula": ""
+        },
+        {
+          "id": 206383,
+          "name": "Musket Brown",
+          "image": null,
+          "restrictionFormula": ""
+        },
+        {
+          "id": 206384,
+          "name": "Tuxedo Grey",
+          "image": null,
+          "restrictionFormula": ""
+        },
+        {
+          "id": 206385,
+          "name": "Wicker",
+          "image": null,
+          "restrictionFormula": ""
+        },
+        {
+          "id": 206387,
+          "name": "Forest Green",
+          "image": null,
+          "restrictionFormula": ""
+        },
+        {
+          "id": 206388,
+          "name": "Classic Blue",
+          "image": null,
+          "restrictionFormula": ""
+        },
+        {
+          "id": 206389,
+          "name": "Wineberry",
+          "image": null,
+          "restrictionFormula": ""
+        },
+        {
+          "id": 206390,
+          "name": "Bright White",
+          "image": null,
+          "restrictionFormula": ""
+        },
+        {
+          "id": 731927,
+          "name": "Burgundy",
+          "image": null,
+          "restrictionFormula": ""
+        }
+      ],
+      "pathIds": [
+        9,
+        10,
+        206315,
+        206316,
+        206317,
+        206318,
+        206321,
+        206322,
+        206373,
+        206374,
+        206377
+      ],
+      "defaultValue": null,
+      "restrictionFormula": ""
+    }
+  ],
+  "206375": [
+    {
+      "id": 206398,
+      "name": "Color",
+      "options": [
+        {
+          "id": 206400,
+          "name": "Black",
+          "image": null,
+          "restrictionFormula": ""
+        },
+        {
+          "id": 206401,
+          "name": "Wedgewood Blue",
+          "image": null,
+          "restrictionFormula": ""
+        },
+        {
+          "id": 206402,
+          "name": "Clay",
+          "image": null,
+          "restrictionFormula": ""
+        },
+        {
+          "id": 206403,
+          "name": "Federal Brown",
+          "image": null,
+          "restrictionFormula": ""
+        },
+        {
+          "id": 206404,
+          "name": "Musket Brown",
+          "image": null,
+          "restrictionFormula": ""
+        },
+        {
+          "id": 206405,
+          "name": "Tuxedo Grey",
+          "image": null,
+          "restrictionFormula": ""
+        },
+        {
+          "id": 206406,
+          "name": "Wicker",
+          "image": null,
+          "restrictionFormula": ""
+        },
+        {
+          "id": 206408,
+          "name": "Forest Green",
+          "image": null,
+          "restrictionFormula": ""
+        },
+        {
+          "id": 206409,
+          "name": "Classic Blue",
+          "image": null,
+          "restrictionFormula": ""
+        },
+        {
+          "id": 206410,
+          "name": "Wineberry",
+          "image": null,
+          "restrictionFormula": ""
+        },
+        {
+          "id": 206411,
+          "name": "Bright White",
+          "image": null,
+          "restrictionFormula": ""
+        },
+        {
+          "id": 731928,
+          "name": "Burgundy",
+          "image": null,
+          "restrictionFormula": ""
+        }
+      ],
+      "pathIds": [
+        9,
+        10,
+        206315,
+        206316,
+        206317,
+        206318,
+        206321,
+        206322,
+        206375,
+        206376,
+        206398
+      ],
+      "defaultValue": null,
+      "restrictionFormula": ""
+    }
+  ],
+  "206419": [
+    {
+      "id": 206423,
+      "name": "Color",
+      "options": [
+        {
+          "id": 206425,
+          "name": "Black",
+          "image": null,
+          "restrictionFormula": ""
+        },
+        {
+          "id": 206426,
+          "name": "Wedgewood Blue",
+          "image": null,
+          "restrictionFormula": ""
+        },
+        {
+          "id": 206427,
+          "name": "Clay",
+          "image": null,
+          "restrictionFormula": ""
+        },
+        {
+          "id": 206428,
+          "name": "Federal Brown",
+          "image": null,
+          "restrictionFormula": ""
+        },
+        {
+          "id": 206429,
+          "name": "Musket Brown",
+          "image": null,
+          "restrictionFormula": ""
+        },
+        {
+          "id": 206430,
+          "name": "Tuxedo Grey",
+          "image": null,
+          "restrictionFormula": ""
+        },
+        {
+          "id": 206431,
+          "name": "Wicker",
+          "image": null,
+          "restrictionFormula": ""
+        },
+        {
+          "id": 206433,
+          "name": "Forest Green",
+          "image": null,
+          "restrictionFormula": ""
+        },
+        {
+          "id": 206434,
+          "name": "Classic Blue",
+          "image": null,
+          "restrictionFormula": ""
+        },
+        {
+          "id": 206435,
+          "name": "Wineberry",
+          "image": null,
+          "restrictionFormula": ""
+        },
+        {
+          "id": 206436,
+          "name": "Bright White",
+          "image": null,
+          "restrictionFormula": ""
+        },
+        {
+          "id": 731926,
+          "name": "Burgundy",
+          "image": null,
+          "restrictionFormula": ""
+        }
+      ],
+      "pathIds": [
+        9,
+        10,
+        206315,
+        206316,
+        206317,
+        206318,
+        206323,
+        206324,
+        206419,
+        206420,
+        206423
+      ],
+      "defaultValue": null,
+      "restrictionFormula": ""
+    }
+  ],
+  "206421": [
+    {
+      "id": 206444,
+      "name": "Color",
+      "options": [
+        {
+          "id": 206446,
+          "name": "Black",
+          "image": null,
+          "restrictionFormula": ""
+        },
+        {
+          "id": 206447,
+          "name": "Wedgewood Blue",
+          "image": null,
+          "restrictionFormula": ""
+        },
+        {
+          "id": 206448,
+          "name": "Clay",
+          "image": null,
+          "restrictionFormula": ""
+        },
+        {
+          "id": 206449,
+          "name": "Federal Brown",
+          "image": null,
+          "restrictionFormula": ""
+        },
+        {
+          "id": 206450,
+          "name": "Musket Brown",
+          "image": null,
+          "restrictionFormula": ""
+        },
+        {
+          "id": 206451,
+          "name": "Tuxedo Grey",
+          "image": null,
+          "restrictionFormula": ""
+        },
+        {
+          "id": 206452,
+          "name": "Wicker",
+          "image": null,
+          "restrictionFormula": ""
+        },
+        {
+          "id": 206454,
+          "name": "Forest Green",
+          "image": null,
+          "restrictionFormula": ""
+        },
+        {
+          "id": 206455,
+          "name": "Classic Blue",
+          "image": null,
+          "restrictionFormula": ""
+        },
+        {
+          "id": 206456,
+          "name": "Wineberry",
+          "image": null,
+          "restrictionFormula": ""
+        },
+        {
+          "id": 206457,
+          "name": "Bright White",
+          "image": null,
+          "restrictionFormula": ""
+        },
+        {
+          "id": 731925,
+          "name": "Burgundy",
+          "image": null,
+          "restrictionFormula": ""
+        }
+      ],
+      "pathIds": [
+        9,
+        10,
+        206315,
+        206316,
+        206317,
+        206318,
+        206323,
+        206324,
+        206421,
+        206422,
+        206444
+      ],
+      "defaultValue": null,
+      "restrictionFormula": ""
+    }
+  ],
+  "211819": [
+    {
+      "id": 211820,
+      "name": "Type",
+      "options": [
+        {
+          "id": 211821,
+          "name": "Plywood ",
+          "image": null,
+          "restrictionFormula": ""
+        },
+        {
+          "id": 211825,
+          "name": "Trim Board",
+          "image": null,
+          "restrictionFormula": ""
+        }
+      ],
+      "pathIds": [
+        9,
+        10,
+        28979,
+        28980,
+        211819,
+        211820
+      ],
+      "defaultValue": null,
+      "restrictionFormula": ""
+    }
+  ],
+  "211821": [
+    {
+      "id": 211822,
+      "name": "Config",
+      "options": [
+        {
+          "id": 211827,
+          "name": "None",
+          "image": null,
+          "restrictionFormula": ""
+        }
+      ],
+      "pathIds": [
+        9,
+        10,
+        28979,
+        28980,
+        211819,
+        211820,
+        211821,
+        211822
+      ],
+      "defaultValue": 211827,
+      "restrictionFormula": ""
+    }
+  ],
+  "211825": [
+    {
+      "id": 211826,
+      "name": "Config",
+      "options": [
+        {
+          "id": 211830,
+          "name": "None",
+          "image": null,
+          "restrictionFormula": ""
+        }
+      ],
+      "pathIds": [
+        9,
+        10,
+        28979,
+        28980,
+        211819,
+        211820,
+        211825,
+        211826
+      ],
+      "defaultValue": 211830,
+      "restrictionFormula": ""
+    }
+  ],
+  "231279": [
+    {
+      "id": 231280,
+      "name": "Type",
+      "options": [
+        {
+          "id": 231281,
+          "name": "None",
+          "image": null,
+          "restrictionFormula": ""
+        }
+      ],
+      "pathIds": [
+        9,
+        10,
+        28979,
+        28980,
+        231279,
+        231280
+      ],
+      "defaultValue": 231281,
+      "restrictionFormula": ""
+    }
+  ],
+  "231281": [
+    {
+      "id": 231282,
+      "name": "Config",
+      "options": [
+        {
+          "id": 231283,
+          "name": "None",
+          "image": null,
+          "restrictionFormula": ""
+        }
+      ],
+      "pathIds": [
+        9,
+        10,
+        28979,
+        28980,
+        231279,
+        231280,
+        231281,
+        231282
+      ],
+      "defaultValue": 231283,
+      "restrictionFormula": ""
+    }
+  ],
+  "231284": [
+    {
+      "id": 231285,
+      "name": "Color",
+      "options": [
+        {
+          "id": 231286,
+          "name": "Black",
+          "image": null,
+          "restrictionFormula": ""
+        },
+        {
+          "id": 231288,
+          "name": "Shakewood",
+          "image": null,
+          "restrictionFormula": ""
+        },
+        {
+          "id": 231289,
+          "name": "Slate",
+          "image": null,
+          "restrictionFormula": ""
+        },
+        {
+          "id": 231290,
+          "name": "Weathered Wood",
+          "image": null,
+          "restrictionFormula": ""
+        },
+        {
+          "id": 231291,
+          "name": "White",
+          "image": null,
+          "restrictionFormula": ""
+        }
+      ],
+      "pathIds": [
+        9,
+        10,
+        28979,
+        28980,
+        231279,
+        231280,
+        231281,
+        231282,
+        231283,
+        231284,
+        231285
+      ],
+      "defaultValue": null,
+      "restrictionFormula": ""
+    }
+  ],
+  "733176": [
+    {
+      "id": 733181,
+      "name": "Type",
+      "options": [
+        {
+          "id": 733186,
+          "name": "None",
+          "image": null,
+          "restrictionFormula": ""
+        }
+      ],
+      "pathIds": [
+        9,
+        10,
+        28979,
+        28980,
+        733176,
+        733181
+      ],
+      "defaultValue": 733186,
+      "restrictionFormula": ""
+    }
+  ],
+  "733186": [
+    {
+      "id": 733191,
+      "name": "Config",
+      "options": [
+        {
+          "id": 733196,
+          "name": "None",
+          "image": null,
+          "restrictionFormula": ""
+        }
+      ],
+      "pathIds": [
+        9,
+        10,
+        28979,
+        28980,
+        733176,
+        733181,
+        733186,
+        733191
+      ],
+      "defaultValue": 733196,
+      "restrictionFormula": ""
+    }
+  ],
+  "733196": [
+    {
+      "id": 733206,
+      "name": "Color",
+      "options": [
+        {
+          "id": 733211,
+          "name": "Amber",
+          "image": "amber.png",
+          "restrictionFormula": ""
+        },
+        {
+          "id": 733216,
+          "name": "Cobblestone",
+          "image": "cobblestone.png",
+          "restrictionFormula": ""
+        },
+        {
+          "id": 733221,
+          "name": "Graphite",
+          "image": "graphite.png",
+          "restrictionFormula": ""
+        },
+        {
+          "id": 733226,
+          "name": "Mystic",
+          "image": "mystic.png",
+          "restrictionFormula": ""
+        },
+        {
+          "id": 733231,
+          "name": "Sapphire",
+          "image": "sapphire.png",
+          "restrictionFormula": ""
+        }
+      ],
+      "pathIds": [
+        9,
+        10,
+        28979,
+        28980,
+        733176,
+        733181,
+        733186,
+        733191,
+        733196,
+        733201,
+        733206
+      ],
+      "defaultValue": null,
+      "restrictionFormula": ""
+    },
+    {
+      "id": 733236,
+      "name": "Removal",
+      "options": [
+        {
+          "id": 733241,
+          "name": "Standard Shingle",
+          "image": null,
+          "restrictionFormula": ""
+        },
+        {
+          "id": 733246,
+          "name": "Cedar Shake + Sheathing",
+          "image": null,
+          "restrictionFormula": ""
+        },
+        {
+          "id": 733251,
+          "name": "Slate / Metal",
+          "image": null,
+          "restrictionFormula": ""
+        },
+        {
+          "id": 733256,
+          "name": "Cedar Shake using existing plywood",
+          "image": null,
+          "restrictionFormula": ""
+        }
+      ],
+      "pathIds": [
+        9,
+        10,
+        28979,
+        28980,
+        733176,
+        733181,
+        733186,
+        733191,
+        733196,
+        733201,
+        733236
+      ],
+      "defaultValue": null,
+      "restrictionFormula": ""
+    },
+    {
+      "id": 824642,
+      "name": "Drip Edge Color",
+      "options": [
+        {
+          "id": 824647,
+          "name": "White",
+          "image": null,
+          "restrictionFormula": ""
+        },
+        {
+          "id": 824652,
+          "name": "Brown",
+          "image": null,
+          "restrictionFormula": ""
+        }
+      ],
+      "pathIds": [
+        9,
+        10,
+        28979,
+        28980,
+        733176,
+        733181,
+        733186,
+        733191,
+        733196,
+        733201,
+        824642
+      ],
+      "defaultValue": null,
+      "restrictionFormula": ""
+    }
+  ],
+  "rootId": 9
+}
