@@ -1,93 +1,55 @@
-import Context from "Context";
-import classnames from "classnames";
-import { useCallback, useContext } from "react";
-import { useFormContext } from "react-hook-form";
-import { Card, Button, Title } from "playbook-ui";
+import classnames from "classnames"
+import { Button, Card, Icon, Title } from "playbook-ui"
 
-import CardInput from "components/CardInput";
-import { NestedStepInput } from "./NestedStepInput";
-import { validateFormula } from "helpers/validation";
-import { useStepInput } from "hooks/useStepInput";
+import Alert from "components/Alert"
+import CardInput from "components/CardInput"
+import { useStepInput } from "hooks/useStepInput"
 
-import styles from "./styles.module.scss";
-import Alert from "components/Alert";
+import styles from "./styles.module.scss"
 
-export default function StepInput({ label, name, nestable = false, options = [] }) {
-  const { lookup } = useContext(Context);
-  const { getValues, errors, register } = useFormContext();
+export default function StepInput({ step = {} }) {
   const {
-    disabled,
-    invalid,
+    error,
     expanded,
+    name,
+    nextSteps,
+    notice,
     select,
     toggleExpanded,
+    ref,
     value,
-    parentFieldName
-  } = useStepInput({
-    name,
-    options
-  });
-
-  const validate = (id) => {
-    const config = lookup(id);
-    const { error, notice } = validateFormula(config, getValues()?.dimensions);
-    return error || notice;
-  };
+  } = useStepInput(step)
 
   const css = classnames(styles.StepInput, {
-    [styles.DisabledInput]: disabled,
-    [styles.InvalidInput]: invalid
-  });
+    [styles.Invalid]: error
+  })
 
   return (
     <>
       <Card className={css} margin="xs" padding="xs">
-        {/*
-          React hook form will clear the form state when fields are unmounted, this is
-          an expected behavior that helps keeping the form state in sync with what's
-          presented to the user. Howevere, in HomeTour, we need to hide/collapse fields when
-          selecting options, which causes the form state to lose the user's input.
-          To workaround this expected behavior, we can rely on hidden fields to keep
-          track of the field state. The benefit is that we still get that form state cleanup
-          behavior when the actual StepInput gets unmounted (when it is not available for a
-          parent selection).
-        */}
-        {options.length > 0 && (
-          <>
-            <input
-              type="hidden"
-              ref={register({ required: true, validate })}
-              name={name}
-              defaultValue={value?.id}
-            />
-            <input
-              type="hidden"
-              ref={register}
-              name={parentFieldName}
-              defaultValue={value?.parentId}
-            />
-          </>
-        )}
+        <input type="hidden" ref={ ref } name={ name } defaultValue={value?.id} />
 
         <Button
           fullWidth
-          padding="none"
-          className={disabled ? "disabled" : null}
-          variant="link"
           onClick={toggleExpanded}
+          padding="none"
+          variant="link"
         >
-          {label}
+          {error && <span><Icon fixedWidth icon="exclamation-circle" /></span>}
+          {!error && notice && <span><Icon fixedWidth icon="exclamation-circle" /></span>}
+          { step.name }
         </Button>
 
-        {errors[name] && <Alert>{errors[name].message}</Alert>}
+        {expanded && error && error.message && <Alert>{error.message}</Alert>}
+        {expanded && !error && notice && <Alert level="warning">{notice}</Alert>}
 
-        {!expanded && options.length > 0 && <Title>{value?.name}</Title>}
+        {!expanded && <Title>{value?.name}</Title>}
 
         {expanded &&
-          options.map((option) => (
+          step.options.map((option) => (
             <CardInput
               key={option.id}
-              name={name}
+              name={`${step.name}-card-input`}
               option={option}
               value={value}
               onChange={select}
@@ -95,7 +57,7 @@ export default function StepInput({ label, name, nestable = false, options = [] 
           ))}
       </Card>
 
-      {nestable && value && <NestedStepInput parent={value} />}
+      {nextSteps.map(nextStep => <StepInput key={nextStep.id} step={nextStep} />)}
     </>
-  );
+  )
 }

@@ -2,12 +2,6 @@ h3.pb_title_kit_4.dark {
   color: #000 !important;
 }
 
-.disabled {
-  cursor: default;
-  pointer-events: none;
-  color: #ddd !important;
-}
-
 [class^="pb_text_input_kit"] .text_input_wrapper input,
 [class^="pb_text_input_kit"] .text_input_wrapper .text_input {
   width: auto !important;

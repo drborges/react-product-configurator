@@ -1,79 +1,68 @@
-import Context from "Context";
-import { useCallback, useContext, useEffect, useMemo } from "react";
-import { useFormContext } from "react-hook-form";
-import { useToggler } from "./useToggler";
+import { useCallback, useEffect, useMemo } from "react"
+import { useExpandable } from "./useExpandable"
+import { useOptionSelector } from "./useOptionSelector"
+import { useInputValidations } from "./useInputValidations"
+import { useDecisionTreeContext } from "./useDecisionTreeContext"
+import { useUnregisterFieldOnUnmount } from "./useUnregisterFieldOnUnmount"
+import { useRevalidateOnDimensionsChange } from "./useRevalidateOnDimensionsChange"
+import {
+  findDefaultOption,
+  findOptionById,
+  findOptionByName
+} from "helpers/step"
 
-export function useStepInput({ name, options }) {
-  const { errors, setValue } = useFormContext();
-  const [expanded, toggleExpanded] = useToggler();
-  const { select, selection } = useContext(Context);
-  const parentFieldName = `${name}_parent_id`;
-  const invalid = errors[name];
-  const value = selection[name];
-  const selectOption = useCallback(
-    (option) => {
-      setValue(name, option?.id, {
-        shouldValidate: true,
-        shouldDirty: true
-      });
-      // Make sure we track the parent config as well
-      // this will make it easier to extract all config
-      // ids we need to build the product upon clicking "Save"
-      setValue(parentFieldName, option?.parentId);
-      // Track user selections outside the form state,
-      // this will allow us to initialize new fields with
-      // previously selected values as users change options
-      // higher in the tree, e.g., changing the style or model
-      // we'd be able to keep the state of previouslly selected
-      // options, such as "Color", "Grid Pattern", etc...
-      select(name, option);
-    },
-    [name, parentFieldName, select, setValue]
-  );
+export function useStepInput(step) {
+  useUnregisterFieldOnUnmount(step)
+  useRevalidateOnDimensionsChange()
+  const { select } = useOptionSelector(step)
+  const { next, valueFor } = useDecisionTreeContext()
+  const { error, notice, ref } = useInputValidations(step)
+  const { collapse, expanded, toggle, expand } = useExpandable()
 
-  const handleSelect = useCallback(
-    (value) => {
-      toggleExpanded();
-      setTimeout(() => selectOption(value), 0);
-    },
-    [selectOption, toggleExpanded]
-  );
+  const value = valueFor(step)
+  const nextSteps = next(value)
+  const defaultOption = useMemo(() => findDefaultOption(step), [step])
+  const optionById = useMemo(() => findOptionById(step, value?.id), [step, value])
+  const optionByName = useMemo(() => findOptionByName(step, value?.name), [step, value])
+  const canAutoSelect = !optionById && defaultOption
+  const canReconcile = !optionById && optionByName
+  const cantReconcile = !optionById && !optionByName
 
-  const disabled = options.length <= 1;
-  const optionById = useMemo(() => options.find((o) => o.id === value?.id), [options, value]);
-  const optionByName = useMemo(() => options.find((o) => o.name === value?.name), [options, value]);
-  const canAutoSelect = !optionById && options.length === 1;
-  const canReconcile = !optionById && optionByName;
-  const cantReconcile = !optionById && !optionByName;
+  const handleSelect = useCallback((option) => {
+    select(option)
+    collapse()
+  }, [collapse, select])
 
   useEffect(() => {
     if (canAutoSelect) {
-      selectOption(options[0]);
-      console.log(">>>>> AUTO SELECTED", name);
+      select(defaultOption)
     } else if (canReconcile) {
-      selectOption(optionByName);
-      console.log(">>>>> CAN RECONCILE", name);
-    } else if (cantReconcile && !disabled && !invalid) {
-      console.log(">>>>> CANNOT RECONCILE", name);
-      selectOption(undefined);
+      select(optionByName)
+    } else if (cantReconcile) {
+      if (!error) select(undefined)
+      if (!expanded) expand()
     }
-  }, [canAutoSelect, canReconcile, disabled, invalid, optionByName, options, selectOption]);
-
-  useEffect(() => {
-    if (invalid && !expanded) {
-      console.log(">>>>> INVALID AND NOT EXPANDED", name);
-      console.log(">>>>> INVALID", invalid);
-      toggleExpanded();
-    }
-  }, [invalid]);
+  }, [
+    canAutoSelect,
+    canReconcile,
+    cantReconcile,
+    defaultOption,
+    error,
+    expand,
+    expanded,
+    optionByName,
+    select,
+  ])
 
   return {
-    disabled,
-    invalid,
+    error,
     expanded,
-    toggleExpanded,
+    name: step.name,
+    nextSteps,
+    notice,
+    ref,
+    select: handleSelect,
+    toggleExpanded: toggle,
     value,
-    parentFieldName,
-    select: handleSelect
-  };
+  }
 }

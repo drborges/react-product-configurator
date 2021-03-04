@@ -6,17 +6,11 @@
   }
 }
 
-.DisabledInput {
-  border: thin solid #ddd;
-}
-
-.InvalidInput {
+.Invalid {
   border: thin solid rgba(255, 0, 0, .7);
   box-shadow: 0 0 5px 1px rgba(255, 0, 0, .5) !important;
 
   button {
     color: rgb(255, 0, 0) !important;
-    pointer-events: none;
-    cursor: default;
   }
 }

@@ -1,51 +1,40 @@
-import classnames from "classnames";
-import { useFormContext } from "react-hook-form";
-import { Card, Button, Flex, FlexItem, Title, TextInput } from "playbook-ui";
+import classnames from "classnames"
+import { useFormContext } from "react-hook-form"
+import { Card, Button, Flex, FlexItem, Title, TextInput } from "playbook-ui"
 
-import { useToggler } from "hooks/useToggler";
+import { useExpandable } from "hooks/useExpandable"
 
-import styles from "./styles.module.scss";
-import { useCallback, useEffect, useState } from "react";
+import styles from "./styles.module.scss"
+import { useCallback, useEffect } from "react"
 
-export default function DimensionsInput({ label, name, value = { width: "", height: "" } }) {
-  const [expanded, toggleExpanded] = useToggler();
-  const [dimensions, setDimensions] = useState(value);
-  const { register, setValue, errors, trigger } = useFormContext();
+export default function DimensionsInput({ label, name, value = {} }) {
+  const { expanded, expand, toggle } = useExpandable()
+  const { getValues, register, setValue, errors } = useFormContext()
+  const dimensions = getValues()?.dimensions || value
+
   const setField = useCallback((name, value) => {
     setValue(name, value, {
       shouldDirty: true,
       shouldValidate: true
-    });
-  }, []);
+    })
+  }, [setValue])
 
-  const handleChange = useCallback(
-    (e) => {
-      setField(`${name}.${e.target.name}`, e.target.value);
-      setDimensions((current) => ({
-        ...current,
-        [e.target.name]: e.target.value
-      }));
-      trigger();
-    },
-    [setField]
-  );
+  const handleChange = useCallback((e) => {
+    setField(`${name}.${e.target.name}`, e.target.value)
+  }, [setField, name])
+
+  useEffect(() => {
+    if (!expanded && !dimensions.width) setField("dimensions.width", "")
+    if (!expanded && !dimensions.height) setField("dimensions.height", "")
+  }, [setField, dimensions, expanded])
+
+  if (!expanded && errors[name]) {
+    expand()
+  }
 
   const css = classnames(styles.DimensionsInput, {
     [styles.InvalidInput]: errors[name]
-  });
-
-  useEffect(() => {
-    if (!expanded && !dimensions.width) {
-      setField("dimensions.width", "");
-    }
-    if (!expanded && !dimensions.height) {
-      setField("dimensions.height", "");
-    }
-  }, [setField, dimensions]);
-
-  if (!expanded && errors[name]) {
-    toggleExpanded();
-  }
+  })
 
   return (
     <Card className={css} margin="xs" padding="xs">
@@ -62,7 +51,7 @@ export default function DimensionsInput({ label, name, value = { width: "", heig
         defaultValue={dimensions.height}
       />
 
-      <Button fullWidth padding="none" variant="link" onClick={toggleExpanded}>
+      <Button fullWidth padding="none" variant="link" onClick={toggle}>
         {label}
       </Button>
 
@@ -99,5 +88,5 @@ export default function DimensionsInput({ label, name, value = { width: "", heig
         </Flex>
       )}
     </Card>
-  );
+  )
 }

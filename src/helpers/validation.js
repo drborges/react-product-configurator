@@ -1,11 +1,14 @@
-export function validateFormula(config, { width = 0, height = 0 } = {}) {
+/* eslint-disable no-eval */
+/* eslint-disable no-unused-vars */
+
+export function validateFormula(option, { width = 0, height = 0 } = {}) {
   let error = null,
-    notice = null,
-    marketing_territory_id = "",
-    united_inches = "",
-    leg = "";
+      notice = null,
+      marketing_territory_id = "",
+      united_inches = "",
+      leg = ""
 
-  eval(config.restrictionFormula);
+  eval(option?.restrictionFormula)
 
-  return { error, notice };
+  return { error, notice }
 }
