@@ -12,7 +12,7 @@ export default function StepInput({ step = {} }) {
     error,
     expanded,
     name,
-    next,
+    nextSteps,
     notice,
     select,
     toggleExpanded,
@@ -20,7 +20,6 @@ export default function StepInput({ step = {} }) {
     value,
   } = useStepInput(step)
 
-  const nextSteps = next(value)
   const css = classnames(styles.StepInput, {
     [styles.Invalid]: error
   })

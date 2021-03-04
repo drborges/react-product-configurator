@@ -20,6 +20,7 @@ export function useStepInput(step) {
   const { collapse, expanded, toggle, expand } = useExpandable()
 
   const value = valueFor(step)
+  const nextSteps = next(value)
   const defaultOption = useMemo(() => findDefaultOption(step), [step])
   const optionById = useMemo(() => findOptionById(step, value?.id), [step, value])
   const optionByName = useMemo(() => findOptionByName(step, value?.name), [step, value])
@@ -57,7 +58,7 @@ export function useStepInput(step) {
     error,
     expanded,
     name: step.name,
-    next,
+    nextSteps,
     notice,
     ref,
     select: handleSelect,
