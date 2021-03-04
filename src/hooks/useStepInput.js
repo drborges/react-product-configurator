@@ -1,7 +1,7 @@
-import { useCallback, useEffect, useMemo } from "react";
-import { useExpandable } from "./useExpandable";
+import { useCallback, useEffect, useMemo } from "react"
+import { useExpandable } from "./useExpandable"
 import { useOptionSelector } from "./useOptionSelector"
-import { useInputValidations } from "./useInputValidations";
+import { useInputValidations } from "./useInputValidations"
 import { useDecisionTreeContext } from "./useDecisionTreeContext"
 import { useUnregisterFieldOnUnmount } from "./useUnregisterFieldOnUnmount"
 import { useRevalidateOnDimensionsChange } from "./useRevalidateOnDimensionsChange"
@@ -16,21 +16,21 @@ export function useStepInput(step) {
   useRevalidateOnDimensionsChange()
   const { select } = useOptionSelector(step)
   const { next, valueFor } = useDecisionTreeContext()
-  const { error, notice, ref } = useInputValidations(step);
-  const { collapse, expanded, toggle, expand } = useExpandable();
+  const { error, notice, ref } = useInputValidations(step)
+  const { collapse, expanded, toggle, expand } = useExpandable()
 
-  const value = valueFor(step);
+  const value = valueFor(step)
   const defaultOption = useMemo(() => findDefaultOption(step), [step])
-  const optionById = useMemo(() => findOptionById(step, value?.id), [step, value]);
-  const optionByName = useMemo(() => findOptionByName(step, value?.name), [step, value]);
-  const canAutoSelect = !optionById && defaultOption;
-  const canReconcile = !optionById && optionByName;
-  const cantReconcile = !optionById && !optionByName;
+  const optionById = useMemo(() => findOptionById(step, value?.id), [step, value])
+  const optionByName = useMemo(() => findOptionByName(step, value?.name), [step, value])
+  const canAutoSelect = !optionById && defaultOption
+  const canReconcile = !optionById && optionByName
+  const cantReconcile = !optionById && !optionByName
 
   const handleSelect = useCallback((option) => {
-    select(option);
-    collapse();
-  }, [collapse, select]);
+    select(option)
+    collapse()
+  }, [collapse, select])
 
   useEffect(() => {
     if (canAutoSelect) {
@@ -38,7 +38,7 @@ export function useStepInput(step) {
     } else if (canReconcile) {
       select(optionByName)
     } else if (cantReconcile) {
-      if (!error) select(undefined);
+      if (!error) select(undefined)
       if (!expanded) expand()
     }
   }, [
@@ -51,7 +51,7 @@ export function useStepInput(step) {
     expanded,
     optionByName,
     select,
-  ]);
+  ])
 
   return {
     error,
@@ -63,5 +63,5 @@ export function useStepInput(step) {
     select: handleSelect,
     toggleExpanded: toggle,
     value,
-  };
+  }
 }

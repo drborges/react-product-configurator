@@ -1,14 +1,14 @@
 import { isEmpty } from "lodash"
-import { useFormContext } from "react-hook-form";
-import { Button, Card, Select } from "playbook-ui";
+import { useFormContext } from "react-hook-form"
+import { Button, Card, Select } from "playbook-ui"
 
-import UserSelections from "components/UserSelections";
+import UserSelections from "components/UserSelections"
 import territories from "./territories.json"
 import products from "./products.json"
-import styles from "./styles.module.scss";
+import styles from "./styles.module.scss"
 
 export default function Navbar({ filters = {}, onChangeFilter }) {
-  const { errors } = useFormContext();
+  const { errors } = useFormContext()
 
   return (
     <Card marginRight="xs" className={ styles.Navbar }>
@@ -25,5 +25,5 @@ export default function Navbar({ filters = {}, onChangeFilter }) {
 
       <UserSelections />
     </Card>
-  );
+  )
 }

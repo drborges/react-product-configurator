@@ -1,40 +1,40 @@
-import classnames from "classnames";
-import { useFormContext } from "react-hook-form";
-import { Card, Button, Flex, FlexItem, Title, TextInput } from "playbook-ui";
+import classnames from "classnames"
+import { useFormContext } from "react-hook-form"
+import { Card, Button, Flex, FlexItem, Title, TextInput } from "playbook-ui"
 
-import { useExpandable } from "hooks/useExpandable";
+import { useExpandable } from "hooks/useExpandable"
 
-import styles from "./styles.module.scss";
-import { useCallback, useEffect } from "react";
+import styles from "./styles.module.scss"
+import { useCallback, useEffect } from "react"
 
 export default function DimensionsInput({ label, name, value = {} }) {
-  const { expanded, expand, toggle } = useExpandable();
-  const { getValues, register, setValue, errors } = useFormContext();
+  const { expanded, expand, toggle } = useExpandable()
+  const { getValues, register, setValue, errors } = useFormContext()
   const dimensions = getValues()?.dimensions || value
 
   const setField = useCallback((name, value) => {
     setValue(name, value, {
       shouldDirty: true,
       shouldValidate: true
-    });
-  }, [setValue]);
+    })
+  }, [setValue])
 
   const handleChange = useCallback((e) => {
-    setField(`${name}.${e.target.name}`, e.target.value);
-  }, [setField, name]);
+    setField(`${name}.${e.target.name}`, e.target.value)
+  }, [setField, name])
 
   useEffect(() => {
-    if (!expanded && !dimensions.width) setField("dimensions.width", "");
-    if (!expanded && !dimensions.height) setField("dimensions.height", "");
-  }, [setField, dimensions, expanded]);
+    if (!expanded && !dimensions.width) setField("dimensions.width", "")
+    if (!expanded && !dimensions.height) setField("dimensions.height", "")
+  }, [setField, dimensions, expanded])
 
   if (!expanded && errors[name]) {
-    expand();
+    expand()
   }
 
   const css = classnames(styles.DimensionsInput, {
     [styles.InvalidInput]: errors[name]
-  });
+  })
 
   return (
     <Card className={css} margin="xs" padding="xs">
@@ -88,5 +88,5 @@ export default function DimensionsInput({ label, name, value = {} }) {
         </Flex>
       )}
     </Card>
-  );
+  )
 }

@@ -1,5 +1,5 @@
-import { createContext } from "react";
+import { createContext } from "react"
 
-const DecisionTreeContext = createContext({});
+const DecisionTreeContext = createContext({})
 
-export default DecisionTreeContext;
+export default DecisionTreeContext

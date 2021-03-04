@@ -1,13 +1,13 @@
-import { Flex } from "playbook-ui";
+import { Flex } from "playbook-ui"
 import { useCallback, useEffect, useState } from "react"
-import { useFormContext } from "react-hook-form";
+import { useFormContext } from "react-hook-form"
 
-import Navbar from "components/Navbar";
-import ProductConfigurator from "components/ProductConfigurator";
+import Navbar from "components/Navbar"
+import ProductConfigurator from "components/ProductConfigurator"
 
 
 export default function Form() {
-  const { handleSubmit } = useFormContext();
+  const { handleSubmit } = useFormContext()
   const [decisionTree, setDecisionTree] = useState()
   const [filters, setFilter] = useState({ territory: 1, product: 1 })
   const updateFilters = useCallback((name, value) => setFilter(current => ({
@@ -24,8 +24,8 @@ export default function Form() {
   }, [updateFilters])
 
   const onSubmit = useCallback((values) => {
-    console.log("Product Config Ids:", values);
-  }, []);
+    console.log("Product Config Ids:", values)
+  }, [])
 
   useEffect(() => {
     const configPath = `/configs/${filters.territory}-${filters.product}-decision-tree.json`
@@ -42,5 +42,5 @@ export default function Form() {
         <ProductConfigurator loading={!decisionTree} decisionTree={decisionTree} />
       </Flex>
     </form>
-  );
+  )
 }

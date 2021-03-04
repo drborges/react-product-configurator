@@ -1,11 +1,11 @@
-import classnames from "classnames";
-import { Button, Card, Icon, Title } from "playbook-ui";
+import classnames from "classnames"
+import { Button, Card, Icon, Title } from "playbook-ui"
 
-import Alert from "components/Alert";
-import CardInput from "components/CardInput";
-import { useStepInput } from "hooks/useStepInput";
+import Alert from "components/Alert"
+import CardInput from "components/CardInput"
+import { useStepInput } from "hooks/useStepInput"
 
-import styles from "./styles.module.scss";
+import styles from "./styles.module.scss"
 
 export default function StepInput({ step = {} }) {
   const {
@@ -18,12 +18,12 @@ export default function StepInput({ step = {} }) {
     toggleExpanded,
     ref,
     value,
-  } = useStepInput(step);
+  } = useStepInput(step)
 
   const nextSteps = next(value)
   const css = classnames(styles.StepInput, {
     [styles.Invalid]: error
-  });
+  })
 
   return (
     <>
@@ -60,5 +60,5 @@ export default function StepInput({ step = {} }) {
 
       {nextSteps.map(nextStep => <StepInput key={nextStep.id} step={nextStep} />)}
     </>
-  );
+  )
 }

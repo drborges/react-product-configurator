@@ -6,9 +6,9 @@ export function validateFormula(option, { width = 0, height = 0 } = {}) {
       notice = null,
       marketing_territory_id = "",
       united_inches = "",
-      leg = "";
+      leg = ""
 
-  eval(option?.restrictionFormula);
+  eval(option?.restrictionFormula)
 
-  return { error, notice };
+  return { error, notice }
 }

@@ -1,12 +1,12 @@
-import { Card, FlexItem, LoadingInline } from "playbook-ui";
+import { Card, FlexItem, LoadingInline } from "playbook-ui"
 
-import StepInput from "components/StepInput";
+import StepInput from "components/StepInput"
 import DecisionTreeContext from "DecisionTreeContext"
 import { useDecisionTree } from "hooks/useDecisionTree"
-import DimensionsInput from "components/DimensionsInput";
+import DimensionsInput from "components/DimensionsInput"
 
 export default function ProductConfigurator({ decisionTree = {}, loading = false}) {
-  const tree = useDecisionTree(decisionTree);
+  const tree = useDecisionTree(decisionTree)
 
   return (
     <DecisionTreeContext.Provider value={tree}>
@@ -21,5 +21,5 @@ export default function ProductConfigurator({ decisionTree = {}, loading = false
         </Card>
       </FlexItem>
     </DecisionTreeContext.Provider>
-  );
+  )
 }

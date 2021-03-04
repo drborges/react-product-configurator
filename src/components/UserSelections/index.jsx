@@ -1,5 +1,5 @@
-import { Caption, Flex, Title } from "playbook-ui";
-import { useFormContext } from "react-hook-form";
+import { Caption, Flex, Title } from "playbook-ui"
+import { useFormContext } from "react-hook-form"
 
 const errorType = error => {
   if (!error) return
@@ -8,8 +8,8 @@ const errorType = error => {
 }
 
 export default function UserSelections() {
-  const { watch, errors } = useFormContext();
-  const data = watch();
+  const { watch, errors } = useFormContext()
+  const data = watch()
 
   return (
     <Flex orientation="column">
@@ -29,7 +29,7 @@ export default function UserSelections() {
             <Caption key={key} size="xs">
               {key}: <strong>{data}</strong>
             </Caption>
-          );
+          )
         })}
       </Flex>
 
@@ -57,5 +57,5 @@ export default function UserSelections() {
         })}
       </Flex>
     </Flex>
-  );
+  )
 }
