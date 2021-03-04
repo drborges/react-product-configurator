@@ -1,3 +1,6 @@
+/* eslint-disable no-eval */
+/* eslint-disable no-unused-vars */
+
 export function validateFormula(option, { width = 0, height = 0 } = {}) {
   let error = null,
       notice = null,

@@ -17,7 +17,7 @@ export default function StepInput({ step = {} }) {
     select,
     toggleExpanded,
     ref,
-    value
+    value,
   } = useStepInput(step);
 
   const nextSteps = next(value)
@@ -28,7 +28,7 @@ export default function StepInput({ step = {} }) {
   return (
     <>
       <Card className={css} margin="xs" padding="xs">
-        <input type="hidden" ref={ref} name={name} defaultValue={value?.id || step.defaultValue} />
+        <input type="hidden" ref={ ref } name={ name } defaultValue={value?.id} />
 
         <Button
           fullWidth
@@ -57,7 +57,8 @@ export default function StepInput({ step = {} }) {
             />
           ))}
       </Card>
-      {nextSteps.map(step => <StepInput key={step.id} step={step} />)}
+
+      {nextSteps.map(nextStep => <StepInput key={nextStep.id} step={nextStep} />)}
     </>
   );
 }

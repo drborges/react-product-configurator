@@ -1,10 +1,9 @@
-import { useContext } from "react";
 import { Card, FlexItem, LoadingInline } from "playbook-ui";
 
 import StepInput from "components/StepInput";
-import DimensionsInput from "components/DimensionsInput";
 import DecisionTreeContext from "DecisionTreeContext"
 import { useDecisionTree } from "hooks/useDecisionTree"
+import DimensionsInput from "components/DimensionsInput";
 
 export default function ProductConfigurator({ decisionTree = {}, loading = false}) {
   const tree = useDecisionTree(decisionTree);

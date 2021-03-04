@@ -1,15 +1,12 @@
-import { useCallback, useState } from "react"
+import { useCallback, useRef } from "react"
 
 export function useDecisionTree(tree) {
   const root = tree[tree.rootId]
-  const [selection, setSelection] = useState({});
+  const selection = useRef({})
   const next = useCallback((value) => tree[value?.id] || [], [tree])
-  const valueFor = useCallback((step) => selection[step.name], [selection])
+  const valueFor = useCallback((step) => selection.current[step.name], [selection])
   const select = useCallback((name, value) => {
-    setSelection(current => ({
-      ...current,
-      [name]: value,
-    }))
+    selection.current[name] = value
   }, [])
 
   return {
