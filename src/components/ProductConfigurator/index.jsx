@@ -4,10 +4,10 @@ import DecisionTreeContext from "DecisionTreeContext"
 import StepInput from "components/StepInput"
 import DimensionsInput from "components/DimensionsInput"
 import { useDecisionTree } from "hooks/useDecisionTree"
-import { useConfigurationChangeHandler } from "hooks/useConfigurationChangeHandler"
+import { useFormChangeListener } from "hooks/useFormChangeListener"
 
 export default function ProductConfigurator({ defaultValues = {}, decisionTree = {}, loading = false, onChange = () => { } }) {
-  useConfigurationChangeHandler(onChange)
+  useFormChangeListener(onChange)
   const tree = useDecisionTree(decisionTree, {
     defaultValues
   })
