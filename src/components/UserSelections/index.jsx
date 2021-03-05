@@ -1,12 +1,6 @@
 import { Caption, Flex, Title } from "playbook-ui"
 import { useFormContext } from "react-hook-form"
 
-const errorType = error => {
-  if (!error) return
-
-  return error.type === "validate" ? "Restriction Formula" : error.type
-}
-
 export default function UserSelections() {
   const { watch, errors } = useFormContext()
   const data = watch()
@@ -37,21 +31,21 @@ export default function UserSelections() {
         <Title marginY="md">Form Errors</Title>
         { Object.entries(errors).map(([field, error]) => {
           return field === "dimensions" ? (
-            <div key={ field }>
+            <div key={field}>
               {error.width && (
                 <Caption size="xs">
-                  Width: <strong>{errorType(error.width)}</strong>
+                  Width: <strong>{error.width.type}</strong>
                 </Caption>
               )}
               {error.height && (
                 <Caption size="xs">
-                  Height: <strong>{errorType(error.height)}</strong>
+                  Height: <strong>{error.height.type}</strong>
                 </Caption>
               )}
             </div>
           ) : (
             <Caption key={field} size="xs">
-              {field}: <strong>{ errorType(error) }</strong>
+              {field}: <strong>{error.type}</strong>
             </Caption>
           )
         })}

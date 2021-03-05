@@ -16,7 +16,7 @@ export function useInputValidations(step) {
     return error
   }, [dimensions, lookup])
 
-  const validations = useMemo(() => ({ required: true, validate }), [validate])
+  const validations = useMemo(() => ({ required: true, validate: { formula: validate } }), [validate])
   const ref = useMemo(() => register(validations), [register, validations])
 
   return {
