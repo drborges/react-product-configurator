@@ -1,12 +1,16 @@
 import { Card, FlexItem, LoadingInline } from "playbook-ui"
 
-import StepInput from "components/StepInput"
 import DecisionTreeContext from "DecisionTreeContext"
-import { useDecisionTree } from "hooks/useDecisionTree"
+import StepInput from "components/StepInput"
 import DimensionsInput from "components/DimensionsInput"
+import { useDecisionTree } from "hooks/useDecisionTree"
+import { useConfigurationChangeHandler } from "hooks/useConfigurationChangeHandler"
 
-export default function ProductConfigurator({ decisionTree = {}, loading = false}) {
-  const tree = useDecisionTree(decisionTree)
+export default function ProductConfigurator({ defaultValues = {}, decisionTree = {}, loading = false, onChange = () => { } }) {
+  useConfigurationChangeHandler(onChange)
+  const tree = useDecisionTree(decisionTree, {
+    defaultValues
+  })
 
   return (
     <DecisionTreeContext.Provider value={tree}>
@@ -14,8 +18,8 @@ export default function ProductConfigurator({ decisionTree = {}, loading = false
         <Card>
           {loading ? <LoadingInline align="center" /> : (
             <>
-              <DimensionsInput label="Dimensions" name="dimensions" />
-              { tree.root.map(step => <StepInput key={ step.id } step={ step } />) }
+              <DimensionsInput label="Dimensions" name="dimensions" defaultValue={defaultValues?.dimensions} />
+              {tree.root.map(step => <StepInput key={step.id} step={step} />)}
             </>
           )}
         </Card>

@@ -7,7 +7,7 @@ import { useExpandable } from "hooks/useExpandable"
 import styles from "./styles.module.scss"
 import { useCallback, useEffect } from "react"
 
-export default function DimensionsInput({ label, name, value = {} }) {
+export default function DimensionsInput({ defaultValue, label, name, value = {} }) {
   const { expanded, expand, toggle } = useExpandable()
   const { getValues, register, setValue, errors } = useFormContext()
   const dimensions = getValues()?.dimensions || value
@@ -42,13 +42,13 @@ export default function DimensionsInput({ label, name, value = {} }) {
         type="hidden"
         ref={register({ required: true })}
         name={`${name}.width`}
-        defaultValue={dimensions.width}
+        defaultValue={dimensions.width || defaultValue?.width}
       />
       <input
         type="hidden"
         ref={register({ required: true })}
         name={`${name}.height`}
-        defaultValue={dimensions.height}
+        defaultValue={dimensions.height || defaultValue.height}
       />
 
       <Button fullWidth padding="none" variant="link" onClick={toggle}>

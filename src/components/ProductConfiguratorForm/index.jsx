@@ -1,5 +1,5 @@
 import { Flex } from "playbook-ui"
-import { useCallback, useEffect, useState } from "react"
+import { useCallback, useEffect, useMemo, useState } from "react"
 import { useFormContext } from "react-hook-form"
 
 import Navbar from "components/Navbar"
@@ -23,6 +23,8 @@ export default function Form() {
     updateFilters(e.target.name, e.target.value)
   }, [updateFilters])
 
+  const handleConfigurationChange = useCallback(value => console.log(value), [])
+
   const onSubmit = useCallback((values) => {
     console.log("Product Config Ids:", values)
   }, [])
@@ -35,11 +37,32 @@ export default function Form() {
       .catch(handleError)
   }, [filters, handleError])
 
+  const defaultValues = useMemo(() => ({
+    "Color": "734292",
+    "Config": "734272",
+    "Grid Pattern Options": "738077",
+    "Model": "732251",
+    "Removal": "734587",
+    "Special Option": "2915",
+    "Style": "732257",
+    "Type": "734122",
+    "White / White Options": "734307",
+    "dimensions": {
+      "height": "11",
+      "width": "22",
+    }
+  }), [])
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Flex justify="center">
         <Navbar filters={filters} onChangeFilter={handleFilterChange} />
-        <ProductConfigurator loading={!decisionTree} decisionTree={decisionTree} />
+        <ProductConfigurator
+          decisionTree={decisionTree}
+          defaultValues={defaultValues}
+          loading={!decisionTree}
+          onChange={handleConfigurationChange}
+        />
       </Flex>
     </form>
   )
