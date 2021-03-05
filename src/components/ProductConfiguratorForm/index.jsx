@@ -23,6 +23,8 @@ export default function Form() {
     updateFilters(e.target.name, e.target.value)
   }, [updateFilters])
 
+  const handleConfigurationChange = useCallback(value => console.log(value), [])
+
   const onSubmit = useCallback((values) => {
     console.log("Product Config Ids:", values)
   }, [])
@@ -56,9 +58,10 @@ export default function Form() {
       <Flex justify="center">
         <Navbar filters={filters} onChangeFilter={handleFilterChange} />
         <ProductConfigurator
-          loading={ !decisionTree }
-          decisionTree={ decisionTree }
+          decisionTree={decisionTree}
           defaultValues={defaultValues}
+          loading={!decisionTree}
+          onChange={handleConfigurationChange}
         />
       </Flex>
     </form>

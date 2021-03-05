@@ -1,11 +1,13 @@
 import { Card, FlexItem, LoadingInline } from "playbook-ui"
 
-import StepInput from "components/StepInput"
 import DecisionTreeContext from "DecisionTreeContext"
-import { useDecisionTree } from "hooks/useDecisionTree"
+import StepInput from "components/StepInput"
 import DimensionsInput from "components/DimensionsInput"
+import { useDecisionTree } from "hooks/useDecisionTree"
+import { useConfigurationChangeHandler } from "hooks/useConfigurationChangeHandler"
 
-export default function ProductConfigurator({ defaultValues = {}, decisionTree = {}, loading = false }) {
+export default function ProductConfigurator({ defaultValues = {}, decisionTree = {}, loading = false, onChange = () => { } }) {
+  useConfigurationChangeHandler(onChange)
   const tree = useDecisionTree(decisionTree, {
     defaultValues
   })
