@@ -5,8 +5,10 @@ import DecisionTreeContext from "DecisionTreeContext"
 import { useDecisionTree } from "hooks/useDecisionTree"
 import DimensionsInput from "components/DimensionsInput"
 
-export default function ProductConfigurator({ decisionTree = {}, loading = false}) {
-  const tree = useDecisionTree(decisionTree)
+export default function ProductConfigurator({ defaultValues = {}, decisionTree = {}, loading = false }) {
+  const tree = useDecisionTree(decisionTree, {
+    defaultValues
+  })
 
   return (
     <DecisionTreeContext.Provider value={tree}>
@@ -14,8 +16,8 @@ export default function ProductConfigurator({ decisionTree = {}, loading = false
         <Card>
           {loading ? <LoadingInline align="center" /> : (
             <>
-              <DimensionsInput label="Dimensions" name="dimensions" />
-              { tree.root.map(step => <StepInput key={ step.id } step={ step } />) }
+              <DimensionsInput label="Dimensions" name="dimensions" defaultValue={defaultValues?.dimensions} />
+              {tree.root.map(step => <StepInput key={step.id} step={step} />)}
             </>
           )}
         </Card>

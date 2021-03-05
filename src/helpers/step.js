@@ -9,3 +9,8 @@ export function findOptionByName(step, name) {
 export function findDefaultOption(step) {
   return step.options.find(o => o.id === step.defaultValue)
 }
+
+export function defaultValueForStep(defaults, step) {
+  const id = defaults[step.name]
+  return step.options.find(o => o.id.toString() === id?.toString())
+}
