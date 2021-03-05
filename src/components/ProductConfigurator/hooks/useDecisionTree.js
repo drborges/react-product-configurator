@@ -1,5 +1,5 @@
 import { useCallback, useRef } from "react"
-import { defaultValueForStep } from "helpers/step"
+import { defaultValueForStep } from "components/ProductConfigurator/helpers/step"
 
 export function useDecisionTree(tree, { defaultValues = {} } = {}) {
   const selection = useRef({})
@@ -15,6 +15,7 @@ export function useDecisionTree(tree, { defaultValues = {} } = {}) {
   }, [])
 
   return {
+    defaults: defaults.current,
     next,
     root: tree[tree.rootId],
     select,

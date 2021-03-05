@@ -1,29 +1,27 @@
-import { Card, FlexItem, LoadingInline } from "playbook-ui"
+import { noop } from "lodash"
+import { LoadingInline } from "playbook-ui"
+import { useForm, FormProvider } from "react-hook-form"
 
-import DecisionTreeContext from "DecisionTreeContext"
-import StepInput from "components/StepInput"
-import DimensionsInput from "components/DimensionsInput"
-import { useDecisionTree } from "hooks/useDecisionTree"
-import { useFormChangeListener } from "hooks/useFormChangeListener"
+import { Form } from "./Form"
+import Context from "./Context"
+import { useDecisionTree } from "./hooks/useDecisionTree"
 
-export default function ProductConfigurator({ defaultValues = {}, decisionTree = {}, loading = false, onChange = () => { } }) {
-  useFormChangeListener(onChange)
-  const tree = useDecisionTree(decisionTree, {
-    defaultValues
-  })
+export default function ProductConfigurator({
+  defaultValues = {},
+  decisionTree = {},
+  loading = false,
+  onChange = noop,
+}) {
+  const tree = useDecisionTree(decisionTree, { defaultValues })
+  const form = useForm({ mode: "all", reValidateMode: "onChange" })
+
+  if (loading) return <LoadingInline align="center" />
 
   return (
-    <DecisionTreeContext.Provider value={tree}>
-      <FlexItem grow maxWidth="md">
-        <Card>
-          {loading ? <LoadingInline align="center" /> : (
-            <>
-              <DimensionsInput label="Dimensions" name="dimensions" defaultValue={defaultValues?.dimensions} />
-              {tree.root.map(step => <StepInput key={step.id} step={step} />)}
-            </>
-          )}
-        </Card>
-      </FlexItem>
-    </DecisionTreeContext.Provider>
+    <FormProvider {...form}>
+      <Context.Provider value={tree}>
+        <Form onChange={onChange} />
+      </Context.Provider>
+    </FormProvider>
   )
 }

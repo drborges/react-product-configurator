@@ -1,7 +1,7 @@
 import { useCallback, useMemo, useState } from "react"
 import { useFormContext } from "react-hook-form"
-import { validateFormula } from "helpers/validation"
-import { findOptionById } from "helpers/step"
+import { validateFormula } from "components/ProductConfigurator/helpers/validation"
+import { findOptionById } from "components/ProductConfigurator/helpers/step"
 
 export function useInputValidations(step) {
   const [notice, setNotice] = useState(null)

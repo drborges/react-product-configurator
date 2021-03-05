@@ -1,11 +1,11 @@
 import classnames from "classnames"
+import { useCallback, useEffect } from "react"
 import { useFormContext } from "react-hook-form"
 import { Card, Button, Flex, FlexItem, Title, TextInput } from "playbook-ui"
 
-import { useExpandable } from "hooks/useExpandable"
+import { useExpandable } from "./hooks/useExpandable"
 
-import styles from "./styles.module.scss"
-import { useCallback, useEffect } from "react"
+import styles from "./DimensionsInput.module.scss"
 
 export default function DimensionsInput({ defaultValue, label, name, value = {} }) {
   const { expanded, expand, toggle } = useExpandable()

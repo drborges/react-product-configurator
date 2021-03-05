@@ -1,11 +1,11 @@
 import classnames from "classnames"
 import { Button, Card, Icon, Title } from "playbook-ui"
 
-import Alert from "components/Alert"
-import CardInput from "components/CardInput"
-import { useStepInput } from "hooks/useStepInput"
+import Alert from "../Alert"
+import CardInput from "../CardInput"
+import { useStepInput } from "./hooks/useStepInput"
 
-import styles from "./styles.module.scss"
+import styles from "./StepInput.module.scss"
 
 export default function StepInput({ step = {} }) {
   const {

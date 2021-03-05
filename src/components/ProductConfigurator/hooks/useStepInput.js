@@ -9,7 +9,7 @@ import {
   findDefaultOption,
   findOptionById,
   findOptionByName
-} from "helpers/step"
+} from "components/ProductConfigurator/helpers/step"
 
 export function useStepInput(step) {
   useUnregisterFieldOnUnmount(step)

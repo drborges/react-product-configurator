@@ -1,9 +1,8 @@
 import { Caption, Flex, Title } from "playbook-ui"
-import { useFormContext } from "react-hook-form"
 
-export default function UserSelections() {
-  const { watch, errors } = useFormContext()
-  const data = watch()
+export default function UserSelections({ formState }) {
+  const data = formState.values || {}
+  const errors = formState.errors || {}
 
   return (
     <Flex orientation="column">

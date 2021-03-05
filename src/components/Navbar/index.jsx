@@ -1,5 +1,3 @@
-import { isEmpty } from "lodash"
-import { useFormContext } from "react-hook-form"
 import { Button, Card, Select } from "playbook-ui"
 
 import UserSelections from "components/UserSelections"
@@ -7,15 +5,15 @@ import territories from "./territories.json"
 import products from "./products.json"
 import styles from "./styles.module.scss"
 
-export default function Navbar({ filters = {}, onChangeFilter }) {
-  const { errors } = useFormContext()
+export default function Navbar({ filters = {}, formState = {}, onChangeFilter }) {
+  const handleSave = () => console.log(">>>>", formState.values)
 
   return (
     <Card marginRight="xs" className={ styles.Navbar }>
       <Select label="Territory" name="territory" options={territories} onChange={onChangeFilter} value={filters.territory} />
       <Select label="Product" name="product" options={products} onChange={onChangeFilter} value={filters.product} />
 
-      <Button disabled={!isEmpty(errors)} fullWidth htmlType="submit">
+      <Button disabled={!formState.complete} fullWidth onClick={handleSave}>
         Save
       </Button>
 
@@ -23,7 +21,7 @@ export default function Navbar({ filters = {}, onChangeFilter }) {
         Cancel
       </Button>
 
-      <UserSelections />
+      <UserSelections formState={formState} />
     </Card>
   )
 }
