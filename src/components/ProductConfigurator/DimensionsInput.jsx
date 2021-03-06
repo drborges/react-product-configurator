@@ -7,10 +7,12 @@ import { useExpandable } from "./hooks/useExpandable"
 
 import styles from "./DimensionsInput.module.scss"
 
-export default function DimensionsInput({ defaultValue, label, name, value = {} }) {
+export default function DimensionsInput({ defaultValue = {}, label, name }) {
   const { expanded, expand, toggle } = useExpandable()
   const { getValues, register, setValue, errors } = useFormContext()
-  const dimensions = getValues()?.dimensions || value
+  const dimensions = getValues()?.dimensions
+  const widthValue = dimensions?.width != null ? dimensions?.width : defaultValue.width
+  const heightValue = dimensions?.height != null ? dimensions?.height : defaultValue.height
 
   const setField = useCallback((name, value) => {
     setValue(name, value, {
@@ -24,9 +26,9 @@ export default function DimensionsInput({ defaultValue, label, name, value = {} 
   }, [setField, name])
 
   useEffect(() => {
-    if (!expanded && !dimensions.width) setField("dimensions.width", "")
-    if (!expanded && !dimensions.height) setField("dimensions.height", "")
-  }, [setField, dimensions, expanded])
+    if (!expanded && !widthValue) setField("dimensions.width", "")
+    if (!expanded && !heightValue) setField("dimensions.height", "")
+  }, [setField, expanded, widthValue, heightValue])
 
   if (!expanded && errors[name]) {
     expand()
@@ -42,13 +44,13 @@ export default function DimensionsInput({ defaultValue, label, name, value = {} 
         type="hidden"
         ref={register({ required: true })}
         name={`${name}.width`}
-        defaultValue={dimensions.width || defaultValue?.width}
+        defaultValue={widthValue}
       />
       <input
         type="hidden"
         ref={register({ required: true })}
         name={`${name}.height`}
-        defaultValue={dimensions.height || defaultValue.height}
+        defaultValue={heightValue}
       />
 
       <Button fullWidth padding="none" variant="link" onClick={toggle}>
@@ -57,9 +59,9 @@ export default function DimensionsInput({ defaultValue, label, name, value = {} 
 
       {!expanded && (
         <Flex justify="center">
-          <Title>Width: {dimensions?.width}</Title>
+          <Title>Width: {widthValue}</Title>
           <Title>﹒</Title>
-          <Title>Height: {dimensions?.height}</Title>
+          <Title>Height: {heightValue}</Title>
         </Flex>
       )}
 
@@ -71,7 +73,7 @@ export default function DimensionsInput({ defaultValue, label, name, value = {} 
               label="Width"
               margin="xs"
               error={errors[name]?.width && "Required"}
-              value={dimensions.width}
+              value={widthValue}
               onChange={handleChange}
             />
           </FlexItem>
@@ -81,7 +83,7 @@ export default function DimensionsInput({ defaultValue, label, name, value = {} 
               label="Height"
               margin="xs"
               error={errors[name]?.height && "Required"}
-              value={dimensions.height}
+              value={heightValue}
               onChange={handleChange}
             />
           </FlexItem>
