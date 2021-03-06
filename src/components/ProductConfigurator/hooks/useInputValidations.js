@@ -7,14 +7,15 @@ export function useInputValidations(step) {
   const [notice, setNotice] = useState(null)
   const { errors, getValues, register } = useFormContext()
   const lookup = useCallback((id) => findOptionById(step, id), [step])
-  const dimensions = getValues().dimensions
+  const width = getValues().width
+  const height = getValues().height
 
   const validate = useCallback((id) => {
     const option = lookup(id)
-    const { error, notice } = validateFormula(option, dimensions)
+    const { error, notice } = validateFormula(option, { width, height })
     setNotice(notice)
     return error
-  }, [dimensions, lookup])
+  }, [width, height, lookup])
 
   const validations = useMemo(() => ({ required: true, validate: { formula: validate } }), [validate])
   const ref = useMemo(() => register(validations), [register, validations])

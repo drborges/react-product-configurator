@@ -10,9 +10,10 @@ import styles from "./DimensionsInput.module.scss"
 export default function DimensionsInput({ defaultValue = {}, label, name }) {
   const { expanded, expand, toggle } = useExpandable()
   const { getValues, register, setValue, errors } = useFormContext()
-  const dimensions = getValues()?.dimensions
-  const widthValue = dimensions?.width != null ? dimensions?.width : defaultValue.width
-  const heightValue = dimensions?.height != null ? dimensions?.height : defaultValue.height
+  const dimensions = getValues(["width", "height"])
+  const widthValue = dimensions.width != null ? dimensions.width : defaultValue.width
+  const heightValue = dimensions.height != null ? dimensions.height : defaultValue.height
+  const hasErrors = errors["width"] || errors["height"]
 
   const setField = useCallback((name, value) => {
     setValue(name, value, {
@@ -22,20 +23,20 @@ export default function DimensionsInput({ defaultValue = {}, label, name }) {
   }, [setValue])
 
   const handleChange = useCallback((e) => {
-    setField(`${name}.${e.target.name}`, e.target.value)
-  }, [setField, name])
+    setField(e.target.name, e.target.value)
+  }, [setField])
 
   useEffect(() => {
-    if (!expanded && !widthValue) setField("dimensions.width", "")
-    if (!expanded && !heightValue) setField("dimensions.height", "")
+    if (!expanded && !widthValue) setField("width", "")
+    if (!expanded && !heightValue) setField("height", "")
   }, [setField, expanded, widthValue, heightValue])
 
-  if (!expanded && errors[name]) {
+  if (!expanded && hasErrors) {
     expand()
   }
 
   const css = classnames(styles.DimensionsInput, {
-    [styles.InvalidInput]: errors[name]
+    [styles.InvalidInput]: hasErrors
   })
 
   return (
@@ -43,13 +44,13 @@ export default function DimensionsInput({ defaultValue = {}, label, name }) {
       <input
         type="hidden"
         ref={register({ required: true })}
-        name={`${name}.width`}
+        name="width"
         defaultValue={widthValue}
       />
       <input
         type="hidden"
         ref={register({ required: true })}
-        name={`${name}.height`}
+        name="height"
         defaultValue={heightValue}
       />
 
@@ -72,7 +73,7 @@ export default function DimensionsInput({ defaultValue = {}, label, name }) {
               name="width"
               label="Width"
               margin="xs"
-              error={errors[name]?.width && "Required"}
+              error={errors["width"] && "Required"}
               value={widthValue}
               onChange={handleChange}
             />
@@ -82,7 +83,7 @@ export default function DimensionsInput({ defaultValue = {}, label, name }) {
               name="height"
               label="Height"
               margin="xs"
-              error={errors[name]?.height && "Required"}
+              error={errors["height"] && "Required"}
               value={heightValue}
               onChange={handleChange}
             />

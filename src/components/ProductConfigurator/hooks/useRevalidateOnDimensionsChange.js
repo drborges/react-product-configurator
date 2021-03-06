@@ -2,9 +2,9 @@ import { useFormContext } from "react-hook-form"
 import { useEffect } from "react"
 
 export function useRevalidateOnDimensionsChange() {
-  const { watch, trigger } = useFormContext()
-  const width = watch("dimensions.width")
-  const height = watch("dimensions.height")
+  const { getValues, trigger } = useFormContext()
+  const width = getValues("width")
+  const height = getValues("height")
 
   useEffect(() => {
     // Revalidates all fields in the next event loop tick

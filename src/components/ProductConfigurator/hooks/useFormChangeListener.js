@@ -8,6 +8,7 @@ export function useFormChangeListener(onChange, { debounceBy = 200 } = {}) {
   const values = watch()
 
   useEffect(() => {
+    console.log("form updated")
     debouncedOnChange({
       complete: isEmpty(errors),
       errors,
