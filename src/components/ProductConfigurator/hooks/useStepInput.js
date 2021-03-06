@@ -3,7 +3,6 @@ import { useExpandable } from "./useExpandable"
 import { useOptionSelector } from "./useOptionSelector"
 import { useInputValidations } from "./useInputValidations"
 import { useDecisionTreeContext } from "./useDecisionTreeContext"
-import { useUnregisterFieldOnUnmount } from "./useUnregisterFieldOnUnmount"
 import { useRevalidateOnDimensionsChange } from "./useRevalidateOnDimensionsChange"
 import {
   findDefaultOption,
@@ -12,7 +11,6 @@ import {
 } from "components/ProductConfigurator/helpers/step"
 
 export function useStepInput(step) {
-  useUnregisterFieldOnUnmount(step)
   useRevalidateOnDimensionsChange()
   const { select } = useOptionSelector(step)
   const { next, valueFor } = useDecisionTreeContext()
