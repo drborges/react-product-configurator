@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo } from "react"
 import { useExpandable } from "./useExpandable"
 import { useOptionSelector } from "./useOptionSelector"
-import { useInputValidations } from "./useInputValidations"
+import { useFormInput } from "./useFormInput"
 import { useDecisionTreeContext } from "./useDecisionTreeContext"
 import { useRevalidateOnDimensionsChange } from "./useRevalidateOnDimensionsChange"
 import {
@@ -13,8 +13,8 @@ import {
 export function useStepInput(step) {
   useRevalidateOnDimensionsChange()
   const { select } = useOptionSelector(step)
+  const { error, notice, ref } = useFormInput(step)
   const { next, valueFor } = useDecisionTreeContext()
-  const { error, notice, ref } = useInputValidations(step)
   const { collapse, expanded, toggle, expand } = useExpandable()
 
   const value = valueFor(step)

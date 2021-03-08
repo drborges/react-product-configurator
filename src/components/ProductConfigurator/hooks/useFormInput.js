@@ -3,7 +3,7 @@ import { useFormContext } from "react-hook-form"
 import { validateFormula } from "components/ProductConfigurator/helpers/validation"
 import { findOptionById } from "components/ProductConfigurator/helpers/step"
 
-export function useInputValidations(step) {
+export function useFormInput(step) {
   const [notice, setNotice] = useState(null)
   const { errors, getValues, register } = useFormContext()
   const lookup = useCallback((id) => findOptionById(step, id), [step])
