@@ -27,7 +27,7 @@ export default function StepInput({ step = {} }) {
   return (
     <>
       <Card className={css} margin="xs" padding="xs">
-        <input type="hidden" ref={ ref } name={ name } defaultValue={value?.id} />
+        <input type="hidden" ref={ref} name={name} defaultValue={value?.id} />
 
         <Button
           fullWidth

@@ -10,9 +10,9 @@ import styles from "./DimensionsInput.module.scss"
 export default function DimensionsInput({ defaultValue = {}, label, name }) {
   const { expanded, expand, toggle } = useExpandable()
   const { getValues, register, setValue, errors } = useFormContext()
-  const dimensions = getValues(["width", "height"])
-  const widthValue = dimensions.width != null ? dimensions.width : defaultValue.width
-  const heightValue = dimensions.height != null ? dimensions.height : defaultValue.height
+  const { width, height } = getValues(["width", "height"])
+  const widthValue = width != null ? width : defaultValue.width
+  const heightValue = height != null ? height : defaultValue.height
   const hasErrors = errors["width"] || errors["height"]
 
   const setField = useCallback((name, value) => {

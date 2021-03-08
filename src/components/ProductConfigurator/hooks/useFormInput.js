@@ -7,8 +7,7 @@ export function useFormInput(step) {
   const [notice, setNotice] = useState(null)
   const { errors, getValues, register } = useFormContext()
   const lookup = useCallback((id) => findOptionById(step, id), [step])
-  const width = getValues().width
-  const height = getValues().height
+  const { width, height } = getValues(["width", "height"])
 
   const validate = useCallback((id) => {
     const option = lookup(id)
