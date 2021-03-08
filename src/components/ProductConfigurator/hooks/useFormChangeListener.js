@@ -5,15 +5,12 @@ import { useFormContext } from "react-hook-form"
 export function useFormChangeListener(onChange, { debounceBy = 200 } = {}) {
   const { errors, watch } = useFormContext()
   const debouncedOnChange = useMemo(() => debounce(onChange, debounceBy), [debounceBy, onChange])
-  const values = watch()
 
   useEffect(() => {
-    console.log("form updated")
     debouncedOnChange({
       complete: isEmpty(errors),
       errors,
-      values,
+      values: watch(),
     })
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [debouncedOnChange, errors]) // adding `values` to the dependencies list cause an infinite loop
+  }, [debouncedOnChange, watch, errors])
 }

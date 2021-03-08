@@ -1,12 +1,13 @@
+import { memo } from "react"
 import { noop } from "lodash"
 import { LoadingInline } from "playbook-ui"
 import { useForm, FormProvider } from "react-hook-form"
 
-import { Form } from "./Form"
+import Form from "./Form"
 import Context from "./Context"
 import { useDecisionTree } from "./hooks/useDecisionTree"
 
-export default function ProductConfigurator({
+function ProductConfigurator({
   defaultValues = {},
   decisionTree = {},
   loading = false,
@@ -25,3 +26,5 @@ export default function ProductConfigurator({
     </FormProvider>
   )
 }
+
+export default memo(ProductConfigurator)

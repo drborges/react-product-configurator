@@ -1,3 +1,4 @@
+import { isObject } from "lodash"
 import { Caption, Flex, Title } from "playbook-ui"
 
 export default function UserSelections({ formState }) {
@@ -10,7 +11,7 @@ export default function UserSelections({ formState }) {
         <Title marginY="md">User Selections</Title>
         {Object.entries(data).map(([key, data]) => (
           <Caption key={key} size="xs">
-            {key}: <strong>{data}</strong>
+            {key}: <strong>{isObject(data) ? `${data.name} - ${data?.id}` : data}</strong>
           </Caption>
         ))}
       </Flex>

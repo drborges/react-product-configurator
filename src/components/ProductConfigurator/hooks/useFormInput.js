@@ -16,8 +16,13 @@ export function useFormInput(step) {
     return error
   }, [width, height, lookup])
 
-  const validations = useMemo(() => ({ required: true, validate: { formula: validate } }), [validate])
-  const ref = useMemo(() => register(validations), [register, validations])
+  const config = useMemo(() => ({
+    required: true,
+    setValueAs: lookup,
+    validate: { formula: validate },
+  }), [lookup, validate])
+
+  const ref = useMemo(() => register(config), [register, config])
 
   return {
     error: errors[step.name],

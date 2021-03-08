@@ -25,7 +25,9 @@ export default function App() {
     updateFilters(e.target.name, e.target.value)
   }, [updateFilters])
 
-  const handleConfigurationChange = useCallback(form => setFormState(form), [])
+  const handleConfigurationChange = useCallback(form => {
+    setFormState(form)
+  }, [])
 
   useEffect(() => {
     const configPath = `/configs/${filters.territory}-${filters.product}-decision-tree.json`

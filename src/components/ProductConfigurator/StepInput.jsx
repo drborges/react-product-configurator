@@ -1,5 +1,6 @@
 import classnames from "classnames"
 import { Button, Card, Icon, Title } from "playbook-ui"
+import { memo } from "react"
 
 import Alert from "../Alert"
 import CardInput from "../CardInput"
@@ -7,7 +8,7 @@ import { useStepInput } from "./hooks/useStepInput"
 
 import styles from "./StepInput.module.scss"
 
-export default function StepInput({ step = {} }) {
+function StepInput({ step = {} }) {
   const {
     error,
     expanded,
@@ -61,3 +62,5 @@ export default function StepInput({ step = {} }) {
     </>
   )
 }
+
+export default memo(StepInput)

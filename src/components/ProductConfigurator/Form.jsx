@@ -1,3 +1,4 @@
+import { memo } from "react"
 import { noop } from "lodash"
 import { Card, FlexItem } from "playbook-ui"
 
@@ -6,7 +7,7 @@ import DimensionsInput from "./DimensionsInput"
 import { useFormChangeListener } from "./hooks/useFormChangeListener"
 import { useDecisionTreeContext } from "./hooks/useDecisionTreeContext"
 
-export function Form({ onChange = noop }) {
+function Form({ onChange = noop }) {
   useFormChangeListener(onChange)
   const { root, defaults } = useDecisionTreeContext()
 
@@ -21,3 +22,5 @@ export function Form({ onChange = noop }) {
     </form>
   )
 }
+
+export default memo(Form)
