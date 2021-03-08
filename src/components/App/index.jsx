@@ -27,6 +27,7 @@ export default function App() {
 
   const handleConfigurationChange = useCallback(form => {
     setFormState(form)
+    console.log("Form Changed", form)
   }, [])
 
   useEffect(() => {
